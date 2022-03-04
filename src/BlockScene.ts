@@ -7,7 +7,7 @@ import { Projector } from "parsegraph-projector";
 import Block from "./Block";
 import Method from "parsegraph-method";
 
-export default class Scene implements WorldRenderable {
+export default abstract class Scene implements WorldRenderable {
   _projector: Projector;
   _blocks: NodeValues<Block>;
   _world: WorldTransform;
@@ -55,9 +55,7 @@ export default class Scene implements WorldRenderable {
     return false;
   }
 
-  render() {
-    return false;
-  }
+  abstract render():boolean;
 
   unmount() {}
 }
