@@ -4302,10 +4302,10 @@ parse5@6.0.1:
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-6.0.1.tgz#e1a1c085c569b3dc08321184f19a39cc27f7c30b"
   integrity sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==
 
-parsegraph-artist@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/parsegraph-artist/-/parsegraph-artist-2.0.3.tgz#5014f6b62222c94f12f1bbcce397e03f1d277ddd"
-  integrity sha512-9ILaUBBEJU/F/wTp4TcVtFrH3M8MjM4yglH79rMQlir9q+tzy9vza5DAigVdwnEh3tyvt72WUfCPG8E3WggnKA==
+parsegraph-artist@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/parsegraph-artist/-/parsegraph-artist-2.1.0.tgz#f15d49ac4cbc9bec901034a60bbc5886a4374935"
+  integrity sha512-7AZPqsKE6Rt1Rua7XXI8IQBQJrNYES0TcNutkmH5grn6GupM8hAcqo2vKhZ9jn6A+ifnOhe9Pqx149o5muq7gg==
   dependencies:
     parsegraph-camera "^1.4.11"
     parsegraph-compileprogram "^2.2.9"
