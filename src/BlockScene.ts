@@ -1,4 +1,4 @@
-import Artist, {
+import {
   WorldTransform,
   WorldRenderable,
   NodeValues,
@@ -7,7 +7,7 @@ import { Projector } from "parsegraph-projector";
 import Block from "./Block";
 import Method from "parsegraph-method";
 
-export default abstract class Scene implements WorldRenderable {
+export default abstract class BlockScene implements WorldRenderable {
   _projector: Projector;
   _blocks: NodeValues<Block>;
   _world: WorldTransform;
@@ -58,27 +58,4 @@ export default abstract class Scene implements WorldRenderable {
   abstract render():boolean;
 
   unmount() {}
-}
-
-export class BlockArtist implements Artist<Block, Scene> {
-  _creator: (projector: Projector) => Scene;
-
-  constructor(creator: (projector: Projector) => Scene) {
-    this._creator = creator;
-  }
-
-  protected create(projector: Projector) {
-    return this._creator(projector);
-  }
-
-  make(projector: Projector, blocks: NodeValues<Block>) {
-    const scene = this.create(projector);
-    scene.setBlocks(blocks);
-    return scene;
-  }
-
-  patch(view: Scene, blocks: NodeValues<Block>): boolean {
-    view.setBlocks(blocks);
-    return true;
-  }
 }
