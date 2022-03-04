@@ -1,6 +1,11 @@
 import { Interactive, Interaction } from "parsegraph-interact";
 import { Layout } from "parsegraph-layout";
-import Artist, {PaintedNode, Freezable, Painted, FreezerCache} from 'parsegraph-artist';
+import Artist, {
+  PaintedNode,
+  Freezable,
+  Painted,
+  FreezerCache,
+} from "parsegraph-artist";
 import Color from "parsegraph-color";
 import Size from "parsegraph-size";
 import Direction from "parsegraph-direction";

@@ -1,6 +1,11 @@
-import Block, {BUD_RADIUS, LINE_COLOR, SELECTED_LINE_COLOR, LINE_THICKNESS} from "./Block";
+import Block, {
+  BUD_RADIUS,
+  LINE_COLOR,
+  SELECTED_LINE_COLOR,
+  LINE_THICKNESS,
+} from "./Block";
 import Repaintable from "./Repaintable";
-import BlockScene, {BlockArtist} from "./BlockScene";
+import BlockScene, { BlockArtist } from "./BlockScene";
 
 export default Block;
 export {
@@ -10,5 +15,5 @@ export {
   SELECTED_LINE_COLOR,
   LINE_THICKNESS,
   BlockScene,
-  BlockArtist
+  BlockArtist,
 };

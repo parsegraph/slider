@@ -1,4 +1,8 @@
-import Artist, { WorldTransform, WorldRenderable, NodeValues } from "parsegraph-artist";
+import Artist, {
+  WorldTransform,
+  WorldRenderable,
+  NodeValues,
+} from "parsegraph-artist";
 import { Projector } from "parsegraph-projector";
 import Block from "./Block";
 import Method from "parsegraph-method";
@@ -59,9 +63,9 @@ export default class Scene implements WorldRenderable {
 }
 
 export class BlockArtist implements Artist<Block, Scene> {
-  _creator: (projector: Projector)=>Scene;
+  _creator: (projector: Projector) => Scene;
 
-  constructor(creator: (projector: Projector)=>Scene) {
+  constructor(creator: (projector: Projector) => Scene) {
     this._creator = creator;
   }
 
