@@ -5,6 +5,7 @@ SCRIPT_FILES = \
 	src/index.ts \
 	src/BlockArtist.ts \
 	src/Block.ts \
+	src/BlockStyle.ts \
 	src/Repaintable.ts \
 	src/demo.ts \
 	test/test.ts
