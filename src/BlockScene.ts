@@ -1,8 +1,4 @@
-import {
-  WorldTransform,
-  WorldRenderable,
-  NodeValues,
-} from "parsegraph-artist";
+import { WorldTransform, WorldRenderable, NodeValues } from "parsegraph-artist";
 import { Projector } from "parsegraph-projector";
 import Block from "./Block";
 import Method from "parsegraph-method";
@@ -55,7 +51,7 @@ export default abstract class BlockScene implements WorldRenderable {
     return false;
   }
 
-  abstract render():boolean;
+  abstract render(): boolean;
 
   unmount() {}
 }

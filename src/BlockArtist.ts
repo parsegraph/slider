@@ -1,11 +1,9 @@
-import Artist, {
-  NodeValues,
-} from "parsegraph-artist";
+import Artist, { NodeValues } from "parsegraph-artist";
 import { Projector } from "parsegraph-projector";
 import Block from "./Block";
 import BlockScene from "./BlockScene";
 
-export class BlockArtist implements Artist<Block, BlockScene> {
+export default class BlockArtist implements Artist<Block, BlockScene> {
   _creator: (projector: Projector) => BlockScene;
 
   constructor(creator: (projector: Projector) => BlockScene) {

@@ -1,31 +1,16 @@
-import { Interactive, Interaction } from "parsegraph-interact";
-import { Layout } from "parsegraph-layout";
-import Artist, {
-  PaintedNode,
-  Freezable,
-  Painted,
-  FreezerCache,
-} from "parsegraph-artist";
+import Artist, { BUD_RADIUS, PaintedNode, BasicPainted } from "parsegraph-artist";
 import Color from "parsegraph-color";
 import Size from "parsegraph-size";
 import Direction from "parsegraph-direction";
-import Repaintable from "./Repaintable";
 
-export const BUD_RADIUS = 2;
 export const LINE_COLOR = new Color(0.8, 0.8, 0.8, 0.6);
 export const SELECTED_LINE_COLOR = new Color(0.8, 0.8, 0.8, 1);
 export const LINE_THICKNESS = (12 * BUD_RADIUS) / 8;
 
-export default class Block implements Interactive, Painted<Block>, Freezable {
-  _layout: Layout;
-  _interactor: Interaction;
-  _node: PaintedNode<Block>;
-  _cache: FreezerCache;
+export default class Block extends BasicPainted<Block> {
   _color: Color;
   _borderColor: Color;
   _focused: boolean;
-  _artist: Artist<Block>;
-  _onUpdate: Repaintable;
 
   constructor(
     color: Color,
@@ -33,17 +18,11 @@ export default class Block implements Interactive, Painted<Block>, Freezable {
     node: PaintedNode<Block>,
     artist: Artist<Block>
   ) {
-    this._node = node;
-    this._artist = artist;
+    super(node, artist);
     this._focused = false;
-    this._interactor = new Interaction();
-    this._interactor.setFocusListener(this.onFocus, this);
-    this._layout = new Layout(node);
-    this._cache = new FreezerCache(node);
+    this.interact().setFocusListener(this.onFocus, this);
     this._color = color;
     this._borderColor = borderColor;
-
-    this._onUpdate = null;
   }
 
   color() {
@@ -68,13 +47,6 @@ export default class Block implements Interactive, Painted<Block>, Freezable {
 
   focused() {
     return this._focused;
-  }
-
-  scheduleRepaint() {
-    if (this._onUpdate) {
-      // console.log("Scheduling REPAINT");
-      this._onUpdate.scheduleRepaint();
-    }
   }
 
   onFocus(focus: boolean): boolean {
@@ -108,29 +80,5 @@ export default class Block implements Interactive, Painted<Block>, Freezable {
       );
     }
     return size;
-  }
-
-  artist(): Artist<Block> {
-    return this._artist;
-  }
-
-  node(): PaintedNode {
-    return this._node;
-  }
-
-  getCache() {
-    return this._cache;
-  }
-
-  getLayout(): Layout {
-    return this._layout;
-  }
-
-  interact(): Interaction {
-    return this._interactor;
-  }
-
-  setOnScheduleUpdate(repaintable: Repaintable) {
-    this._onUpdate = repaintable;
   }
 }
