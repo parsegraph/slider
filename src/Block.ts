@@ -1,4 +1,8 @@
-import Artist, { BUD_RADIUS, PaintedNode, BasicPainted } from "parsegraph-artist";
+import Artist, {
+  BUD_RADIUS,
+  PaintedNode,
+  BasicPainted,
+} from "parsegraph-artist";
 import Color from "parsegraph-color";
 import Size from "parsegraph-size";
 import Direction from "parsegraph-direction";
