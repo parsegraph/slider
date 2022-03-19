@@ -6,9 +6,7 @@ import Direction, {
   directionSign,
 } from "parsegraph-direction";
 
-import { Matrix3x3 } from "parsegraph-matrix";
-
-import BlockPainter from "parsegraph-blockpainter";
+import BlockPainter, { BlockType } from "parsegraph-blockpainter";
 import {
   BlockNode,
   SELECTED_LINE_COLOR,
@@ -16,22 +14,17 @@ import {
   LINE_THICKNESS,
 } from "./Block";
 import Size from "parsegraph-size";
-import GlyphPainter from "parsegraph-glyphPainter";
 import Rect from "parsegraph-rect";
 import Color from "parsegraph-color";
-import Font from "parsegraph-font";
 import log, { logEnterc, logLeave } from "parsegraph-log";
 import { Projector } from "parsegraph-projector";
 import BlockScene from "./BlockScene";
 
 export default class DefaultBlockScene extends BlockScene {
-  _node: BlockNode;
   _backgroundColor: Color;
   _blockPainter: BlockPainter;
   _renderBlocks: boolean;
-  _fontPainters: { [key: string]: GlyphPainter };
   _renderText: boolean;
-  _pagesPerGlyphTexture: number;
   _mass: number;
   _consecutiveRenders: number;
   _renderLines: boolean;
@@ -48,30 +41,19 @@ export default class DefaultBlockScene extends BlockScene {
     this._backgroundColor = new Color(0, 0, 0, 0);
     this._forceSimple = false;
 
-    this._blockPainter = new BlockPainter(window);
+    this._blockPainter = new BlockPainter(
+      this.projector().glProvider(),
+      BlockType.ROUNDED
+    );
     this._renderBlocks = true;
 
-    this._fontPainters = {};
-
     this._renderText = true;
-
-    this._pagesPerGlyphTexture = NaN;
 
     this.bodySize = new Size();
   }
 
   bounds(): Rect {
     return this._blockPainter.bounds();
-  }
-
-  getFontPainter(font: Font): GlyphPainter {
-    const fullFontName: string = font.fullName();
-    let painter: GlyphPainter = this._fontPainters[fullFontName];
-    if (!painter) {
-      painter = new GlyphPainter(this.projector(), font);
-      this._fontPainters[fullFontName] = painter;
-    }
-    return painter;
   }
 
   projector(): Projector {
@@ -95,12 +77,6 @@ export default class DefaultBlockScene extends BlockScene {
 
   clear(): void {
     this._blockPainter.clear();
-    for (const fontName in this._fontPainters) {
-      if (Object.prototype.hasOwnProperty.call(this._fontPainters, fontName)) {
-        const fontPainter: GlyphPainter = this._fontPainters[fontName];
-        fontPainter.clear();
-      }
-    }
   }
 
   weight(): number {
@@ -111,21 +87,6 @@ export default class DefaultBlockScene extends BlockScene {
     this._consecutiveRenders = 0;
     this._mass = counts.numBlocks;
     this._blockPainter.initBuffer(counts.numBlocks);
-    if (counts.numGlyphs) {
-      for (const fullFontName in counts.numGlyphs) {
-        if (
-          Object.prototype.hasOwnProperty.call(counts.numGlyphs, fullFontName)
-        ) {
-          const numGlyphs = counts.numGlyphs[fullFontName];
-          let fontPainter = this._fontPainters[fullFontName];
-          if (!fontPainter) {
-            fontPainter = new GlyphPainter(this.projector(), numGlyphs.font);
-            this._fontPainters[fullFontName] = fontPainter;
-          }
-          fontPainter.initBuffer(numGlyphs);
-        }
-      }
-    }
   }
 
   countNode(node: BlockNode, counts: any): void {
@@ -133,7 +94,7 @@ export default class DefaultBlockScene extends BlockScene {
       counts.numBlocks = 0;
     }
 
-    forEachCardinalDirection(function (direction: Direction) {
+    forEachCardinalDirection((direction: Direction) => {
       if (node.parentDirection() == direction) {
         return;
       }
@@ -141,59 +102,25 @@ export default class DefaultBlockScene extends BlockScene {
         // Count one for the line
         ++counts.numBlocks;
       }
-    }, this);
+    });
 
     // One for the block.
     ++counts.numBlocks;
-
-    if (!node.realLabel()) {
-      return;
-    }
-
-    const font = node.realLabel().font();
-    const fontPainter = this.getFontPainter(font);
-
-    if (isNaN(this._pagesPerGlyphTexture)) {
-      const glTextureSize = this.projector().textureSize();
-      if (this.gl().isContextLost()) {
-        return;
-      }
-      const pagesPerRow = glTextureSize / fontPainter.font().pageTextureSize();
-      this._pagesPerGlyphTexture = Math.pow(pagesPerRow, 2);
-    }
-    if (isNaN(this._pagesPerGlyphTexture)) {
-      return;
-    }
-
-    if (!counts.numGlyphs) {
-      counts.numGlyphs = {};
-    }
-
-    let numGlyphs = counts.numGlyphs[font.fullName()];
-    if (!numGlyphs) {
-      numGlyphs = { font: font };
-      counts.numGlyphs[font.fullName()] = numGlyphs;
-    }
-
-    node.glyphCount(numGlyphs, this._pagesPerGlyphTexture);
-    // console.log(node + " Count=" + counts.numBlocks);
   }
 
   paint(): boolean {
-    const paintGroup = this._node;
     logEnterc(
       "DefaultNodePainter paints",
-      "Painting paint group {0}",
-      paintGroup
+      "Painting paint group",
     );
     const counts: { [key: string]: number } = {};
-    paintGroup.forEachNode((node: BlockNode) => {
+    this.blocks().forEach(node=>{
       log("Counting node {0}", node);
       this.countNode(node, counts);
     });
     log("Glyphs: {0}", counts.numGlyphs);
     this.initBlockBuffer(counts);
-    paintGroup.forEachNode((node: BlockNode) => {
+    this.blocks().forEach(node=>{
       this.drawNode(node);
     });
 
@@ -202,16 +129,16 @@ export default class DefaultBlockScene extends BlockScene {
   }
 
   drawNode(node: BlockNode) {
-    const gl = this.gl();
-    if (gl.isContextLost()) {
-      return;
-    }
-    checkGLError(gl, "Before Node drawNode");
+    //const gl = this.gl();
+    //if (gl.isContextLost()) {
+      //return;
+    //}
+    //checkGLError(gl, "Before Node drawNode");
     log("Drawing node {0}", node);
 
     this.paintLines(node);
     this.paintBlock(node);
-    checkGLError(gl, "After Node drawNode");
+    //checkGLError(gl, "After Node drawNode");
   }
 
   drawLine(direction: Direction, node: BlockNode) {
@@ -245,7 +172,6 @@ export default class DefaultBlockScene extends BlockScene {
     const parentScale = layout.groupScale();
     const scale = directionData.getNode().value().getLayout().groupScale();
     if (typeof scale !== "number" || isNaN(scale)) {
-      console.log(directionData.node);
       throw new Error(
         directionData.node + "'s groupScale must be a number but was " + scale
       );
@@ -253,7 +179,6 @@ export default class DefaultBlockScene extends BlockScene {
 
     const thickness =
       LINE_THICKNESS * scale * directionData.getNode().state().scale();
-    // console.log(thickness, scale);
     if (isVerticalDirection(direction)) {
       const length =
         directionSign(direction) *
@@ -299,6 +224,9 @@ export default class DefaultBlockScene extends BlockScene {
     const layout = block.getLayout();
     const style = block.blockStyle();
     const painter = this._blockPainter;
+    if (!style) {
+      throw new Error("Block has no style");
+    }
 
     /* // Set colors if selected.
         if(node.isSelected()) {
@@ -323,11 +251,6 @@ export default class DefaultBlockScene extends BlockScene {
 
     // Draw the block.
     const size = layout.groupSize(this.bodySize);
-    // console.log(nameType(node.type()) +
-    //   " x=" +
-    //   node.groupX() +
-    //   ", " +
-    //   node.groupY());
     painter.drawBlock(
       layout.groupX(),
       layout.groupY(),
@@ -342,13 +265,9 @@ export default class DefaultBlockScene extends BlockScene {
     if (!label) {
       return;
     }
-    const fontScale = (style.fontSize * layout.groupScale()) / label.fontSize();
+    const fontScale = (style.fontSize * layout.groupScale()) / label.font().fontSize();
     let labelX;
     let labelY;
-    const fontPainter = this.getFontPainter(label.font());
-    fontPainter.setColor(
-      block.isSelected() ? style.selectedFontColor : style.fontColor
-    );
     if (node.hasNode(Direction.INWARD)) {
       const nodeSize = block.sizeWithoutPadding(this.bodySize);
       if (
@@ -361,17 +280,14 @@ export default class DefaultBlockScene extends BlockScene {
       } else {
         // Align horizontal.
         labelX = layout.groupX() - (layout.groupScale() * nodeSize.width()) / 2;
-        labelY = layout.groupY() - (fontScale * label.height()) / 2;
+        labelY = layout.groupY();
       }
     } else {
       labelX = layout.groupX() - (fontScale * label.width()) / 2;
       labelY = layout.groupY();
     }
     const l = block.realLabel();
-    l._x = labelX;
-    l._y = labelY;
-    l._scale = fontScale;
-    label.paint(fontPainter, labelX, labelY, fontScale);
+    l.setPos(labelX, labelY, fontScale);
   }
 
   forceSimple() {
@@ -383,29 +299,28 @@ export default class DefaultBlockScene extends BlockScene {
   }
 
   render() {
-    // console.log("RENDERING THE NODE from nodepainter");
     ++this._consecutiveRenders;
-    const gl = this.gl();
-    gl.disable(gl.CULL_FACE);
-    // gl.enable(gl.DEPTH_TEST);
-    gl.enable(gl.BLEND);
-    if (this._renderBlocks) {
+    if (this.isBlockRenderingEnabled()) {
+      const gl = this.gl();
+      gl.disable(gl.CULL_FACE);
+      gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-      this._blockPainter.setWorldTransform(this.worldTransform());
-      this._blockPainter.render();
+      this._blockPainter.render(
+        this.worldTransform().matrix(),
+        this.worldTransform().scale()
+      );
     }
 
     if (!this.forceSimple() && this.isTextRenderingEnabled()) {
-      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-      for (const fontName in this._fontPainters) {
-        if (
-          Object.prototype.hasOwnProperty.call(this._fontPainters, fontName)
-        ) {
-          const fontPainter = this._fontPainters[fontName];
-          fontPainter.setWorldTransform(this.worldTransform());
-          fontPainter.render();
+      this.blocks().forEach(node=>{
+        const block = node.value();
+        const label = block.realLabel();
+        const style = block.blockStyle();
+        if (label) {
+          const fontColor = block.isSelected() ? style.selectedFontColor : style.fontColor
+          label.paint(this.projector(), fontColor);
         }
-      }
+      });
     }
 
     return false;
