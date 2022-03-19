@@ -184,7 +184,8 @@ export function style(type: Type | string, mathMode?: boolean): any {
     case Type.SLOT: {
       return mathMode ? SLOT_MATH_STYLE : SLOT_STYLE;
     }
-    case Type.BLOCK: {
+    case Type.BLOCK:
+    default: {
       return mathMode ? BLOCK_MATH_STYLE : BLOCK_STYLE;
     }
   }
