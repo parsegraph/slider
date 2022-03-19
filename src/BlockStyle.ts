@@ -1,5 +1,5 @@
 import Color from "parsegraph-color";
-import { Type, readType } from "./BlockType";
+import Type, { readType } from "./BlockType";
 
 import {
   MIN_BLOCK_WIDTH,
