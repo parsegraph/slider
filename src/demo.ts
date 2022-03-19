@@ -7,8 +7,8 @@ import { BasicProjector } from "parsegraph-projector";
 import TimingBelt from "parsegraph-timingbelt";
 import BlockArtist from "./BlockArtist";
 import DefaultBlockScene from "./DefaultBlockScene";
-import Camera from 'parsegraph-camera'
-import {showInCamera} from 'parsegraph-showincamera';
+import Camera from "parsegraph-camera";
+import { showInCamera } from "parsegraph-showincamera";
 
 const artist = new BlockArtist((projector) => {
   return new DefaultBlockScene(projector);

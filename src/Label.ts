@@ -1,8 +1,8 @@
-import Font from 'parsegraph-font';
-import Size from 'parsegraph-size';
-import {Projector} from 'parsegraph-projector';
-import Color from 'parsegraph-color';
-import {FONT_SIZE} from './BlockStyle'
+import Font from "parsegraph-font";
+import Size from "parsegraph-size";
+import { Projector } from "parsegraph-projector";
+import Color from "parsegraph-color";
+import { FONT_SIZE } from "./BlockStyle";
 
 let measureCanvas: HTMLCanvasElement = null;
 let measureCtx: CanvasRenderingContext2D = null;
@@ -46,7 +46,7 @@ export default class Label {
     return this._font;
   }
 
-  private measure():void {
+  private measure(): void {
     if (this._measured) {
       return;
     }
@@ -54,8 +54,8 @@ export default class Label {
     const bounds = ctx.measureText(this.getText());
     this._measuredSize.setSize(
       bounds.width,
-      bounds.actualBoundingBoxAscent +
-      bounds.actualBoundingBoxDescent);
+      bounds.actualBoundingBoxAscent + bounds.actualBoundingBoxDescent
+    );
     console.log(bounds.width);
     this._measured = true;
   }

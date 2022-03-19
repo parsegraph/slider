@@ -109,18 +109,15 @@ export default class DefaultBlockScene extends BlockScene {
   }
 
   paint(): boolean {
-    logEnterc(
-      "DefaultNodePainter paints",
-      "Painting paint group",
-    );
+    logEnterc("DefaultNodePainter paints", "Painting paint group");
     const counts: { [key: string]: number } = {};
-    this.blocks().forEach(node=>{
+    this.blocks().forEach((node) => {
       log("Counting node {0}", node);
       this.countNode(node, counts);
     });
     log("Glyphs: {0}", counts.numGlyphs);
     this.initBlockBuffer(counts);
-    this.blocks().forEach(node=>{
+    this.blocks().forEach((node) => {
       this.drawNode(node);
     });
 
@@ -129,16 +126,16 @@ export default class DefaultBlockScene extends BlockScene {
   }
 
   drawNode(node: BlockNode) {
-    //const gl = this.gl();
-    //if (gl.isContextLost()) {
-      //return;
-    //}
-    //checkGLError(gl, "Before Node drawNode");
+    // const gl = this.gl();
+    // if (gl.isContextLost()) {
+    // return;
+    // }
+    // checkGLError(gl, "Before Node drawNode");
     log("Drawing node {0}", node);
 
     this.paintLines(node);
     this.paintBlock(node);
-    //checkGLError(gl, "After Node drawNode");
+    // checkGLError(gl, "After Node drawNode");
   }
 
   drawLine(direction: Direction, node: BlockNode) {
@@ -265,7 +262,8 @@ export default class DefaultBlockScene extends BlockScene {
     if (!label) {
       return;
     }
-    const fontScale = (style.fontSize * layout.groupScale()) / label.font().fontSize();
+    const fontScale =
+      (style.fontSize * layout.groupScale()) / label.font().fontSize();
     let labelX;
     let labelY;
     if (node.hasNode(Direction.INWARD)) {
@@ -312,12 +310,14 @@ export default class DefaultBlockScene extends BlockScene {
     }
 
     if (!this.forceSimple() && this.isTextRenderingEnabled()) {
-      this.blocks().forEach(node=>{
+      this.blocks().forEach((node) => {
         const block = node.value();
         const label = block.realLabel();
         const style = block.blockStyle();
         if (label) {
-          const fontColor = block.isSelected() ? style.selectedFontColor : style.fontColor
+          const fontColor = block.isSelected()
+            ? style.selectedFontColor
+            : style.fontColor;
           label.paint(this.projector(), fontColor);
         }
       });
