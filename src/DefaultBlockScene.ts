@@ -1,4 +1,3 @@
-import checkGLError from "parsegraph-checkglerror";
 import Direction, {
   Alignment,
   forEachCardinalDirection,
@@ -35,7 +34,7 @@ export default class DefaultBlockScene extends BlockScene {
     return this._consecutiveRenders;
   }
 
-  constructor(projector: Projector) {
+  constructor(projector: Projector, blockType: BlockType) {
     super(projector);
 
     this._backgroundColor = new Color(0, 0, 0, 0);
@@ -43,7 +42,7 @@ export default class DefaultBlockScene extends BlockScene {
 
     this._blockPainter = new BlockPainter(
       this.projector().glProvider(),
-      BlockType.ROUNDED
+      blockType
     );
     this._renderBlocks = true;
 

@@ -2,18 +2,13 @@ import Direction from "parsegraph-direction";
 import { Pizza, WorldTransform } from "parsegraph-artist";
 import Block from "./Block";
 import { DirectionCaret } from "parsegraph-direction";
-import BlockPalette from "./BlockPalette";
 import { BasicProjector } from "parsegraph-projector";
 import TimingBelt from "parsegraph-timingbelt";
-import BlockArtist from "./BlockArtist";
-import DefaultBlockScene from "./DefaultBlockScene";
 import Camera from "parsegraph-camera";
 import { showInCamera } from "parsegraph-showincamera";
+import DefaultBlockPalette from "./DefaultBlockPalette";
 
-const artist = new BlockArtist((projector) => {
-  return new DefaultBlockScene(projector);
-});
-const palette = new BlockPalette(artist, false);
+const palette = new DefaultBlockPalette();
 
 const buildGraph = () => {
   const car = new DirectionCaret<Block>("u", palette);
