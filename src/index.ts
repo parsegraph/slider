@@ -1,16 +1,48 @@
 import Block, {
+  BlockNode,
   LINE_COLOR,
   SELECTED_LINE_COLOR,
   LINE_THICKNESS,
 } from "./Block";
 import BlockArtist from "./BlockArtist";
 import BlockScene from "./BlockScene";
+import BlockPalette from "./BlockPalette";
+
+import Type, { nameType, readType } from "./BlockType";
+
+import BlockStyle, {
+  BLOCK_STYLE,
+  BLOCK_MATH_STYLE,
+  SLOT_STYLE,
+  SLOT_MATH_STYLE,
+  MIN_BLOCK_WIDTH_MATH,
+  MIN_BLOCK_HEIGHT_MATH,
+  HORIZONTAL_SEPARATION_PADDING_MATH,
+  VERTICAL_SEPARATION_PADDING_MATH,
+} from "./BlockStyle";
+
+import DefaultBlockScene from "./DefaultBlockScene";
 
 export default Block;
 export {
+  BlockPalette,
+  BlockStyle,
+  BlockNode,
   LINE_COLOR,
   SELECTED_LINE_COLOR,
   LINE_THICKNESS,
   BlockScene,
   BlockArtist,
+  BLOCK_STYLE,
+  BLOCK_MATH_STYLE,
+  SLOT_STYLE,
+  SLOT_MATH_STYLE,
+  MIN_BLOCK_WIDTH_MATH,
+  MIN_BLOCK_HEIGHT_MATH,
+  HORIZONTAL_SEPARATION_PADDING_MATH,
+  VERTICAL_SEPARATION_PADDING_MATH,
+  Type,
+  nameType,
+  readType,
+  DefaultBlockScene,
 };
