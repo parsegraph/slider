@@ -15,7 +15,7 @@ export const MIN_BLOCK_HEIGHT_MATH = MIN_BLOCK_WIDTH_MATH;
 export const HORIZONTAL_SEPARATION_PADDING_MATH = 2;
 export const VERTICAL_SEPARATION_PADDING_MATH = 2;
 
-export const FONT_SIZE = 12;
+export const FONT_SIZE = 18;
 
 /**
  * The separation between leaf buds and their parents.
@@ -52,7 +52,7 @@ const BLOCK_STYLE: BlockStyle = {
   horizontalPadding: 3 * BUD_RADIUS,
   verticalPadding: 0.5 * BUD_RADIUS,
   borderColor: new Color(0.6, 1, 0.6, 1.0),
-  backgroundColor: new Color(0.75, 1, 0.75, 1.0),
+  backgroundColor: new Color(1, 1, 1, 0.25),
   selectedBorderColor: new Color(0.8, 0.8, 1, 1),
   selectedBackgroundColor: new Color(0.75, 0.75, 1, 1),
   brightness: 0.75,
