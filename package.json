@@ -48,7 +48,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "parsegraph-artist": "^2.4.1",
+    "parsegraph-artist": "^3.1.0",
     "parsegraph-blockpainter": "^1.6.6",
     "parsegraph-color": "^1.4.7",
     "parsegraph-direction": "^2.0.10",
@@ -57,9 +57,9 @@
     "parsegraph-layout": "^1.8.0",
     "parsegraph-matrix": "^1.4.11",
     "parsegraph-method": "^1.4.22",
-    "parsegraph-projector": "^1.9.0",
+    "parsegraph-projector": "^1.10.0",
     "parsegraph-rect": "^1.4.7",
-    "parsegraph-size": "^1.6.0",
+    "parsegraph-size": "^1.7.0",
     "parsegraph-timing": "^1.4.16",
     "parsegraph-timingbelt": "^1.7.11"
   },
