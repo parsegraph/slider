@@ -11,6 +11,8 @@ import BlockStyle, {
   BUD_LEAF_SEPARATION,
   BUD_TO_BUD_VERTICAL_SEPARATION,
 } from "./BlockStyle";
+import Font from "parsegraph-font";
+import Label, {defaultFont} from "./Label";
 
 export const LINE_COLOR = new Color(0.8, 0.8, 0.8, 0.6);
 export const SELECTED_LINE_COLOR = new Color(0.8, 0.8, 0.8, 1);
