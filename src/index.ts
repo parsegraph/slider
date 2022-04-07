@@ -19,6 +19,9 @@ import BlockStyle, {
   MIN_BLOCK_HEIGHT_MATH,
   HORIZONTAL_SEPARATION_PADDING_MATH,
   VERTICAL_SEPARATION_PADDING_MATH,
+  style,
+  copyStyle,
+  cloneStyle
 } from "./BlockStyle";
 
 import DefaultBlockScene from "./DefaultBlockScene";
@@ -45,4 +48,7 @@ export {
   nameType,
   readType,
   DefaultBlockScene,
+  style,
+  copyStyle,
+  cloneStyle
 };
