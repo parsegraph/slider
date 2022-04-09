@@ -48,7 +48,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "parsegraph-artist": "^3.1.0",
+    "parsegraph-artist": "^3.3.1",
     "parsegraph-blockpainter": "^1.6.6",
     "parsegraph-color": "^1.4.7",
     "parsegraph-direction": "^2.0.10",

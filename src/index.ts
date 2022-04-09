@@ -7,6 +7,7 @@ import Block, {
 import BlockArtist from "./BlockArtist";
 import BlockScene from "./BlockScene";
 import BlockPalette from "./BlockPalette";
+import BlockCaret from "./BlockCaret";
 
 import Type, { nameType, readType } from "./BlockType";
 
@@ -53,4 +54,5 @@ export {
   style,
   copyStyle,
   cloneStyle,
+  BlockCaret
 };
