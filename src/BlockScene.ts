@@ -1,4 +1,5 @@
-import { WorldTransform, WorldRenderable, NodeValues } from "parsegraph-artist";
+import { NodeValues } from "parsegraph-artist";
+import { WorldTransform, WorldRenderable } from "parsegraph-scene";
 import { Projector } from "parsegraph-projector";
 import Block from "./Block";
 import Method from "parsegraph-method";

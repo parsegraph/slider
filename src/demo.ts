@@ -1,5 +1,6 @@
 import Direction from "parsegraph-direction";
-import { Pizza, WorldTransform } from "parsegraph-artist";
+import { Pizza } from "parsegraph-artist";
+import { WorldTransform } from "parsegraph-scene";
 import Block from "./Block";
 import { DirectionCaret } from "parsegraph-direction";
 import { BasicProjector } from "parsegraph-projector";
