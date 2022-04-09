@@ -54,5 +54,5 @@ export {
   style,
   copyStyle,
   cloneStyle,
-  BlockCaret
+  BlockCaret,
 };

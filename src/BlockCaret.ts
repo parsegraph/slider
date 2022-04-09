@@ -1,9 +1,9 @@
-import {PaintedCaret} from 'parsegraph-artist';
-import Block from './Block';
-import Font from 'parsegraph-font';
+import { PaintedCaret } from "parsegraph-artist";
+import Block from "./Block";
+import Font from "parsegraph-font";
 
 export default class BlockCaret extends PaintedCaret<Block> {
-  label(label?:string, font?:Font) {
+  label(label?: string, font?: Font) {
     if (arguments.length === 0) {
       return this.node().value().label();
     }
