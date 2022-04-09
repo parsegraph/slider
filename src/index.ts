@@ -21,13 +21,15 @@ import BlockStyle, {
   VERTICAL_SEPARATION_PADDING_MATH,
   style,
   copyStyle,
-  cloneStyle
+  cloneStyle,
 } from "./BlockStyle";
 
 import DefaultBlockScene from "./DefaultBlockScene";
+import DefaultBlockPalette from "./DefaultBlockPalette";
 
 export default Block;
 export {
+  DefaultBlockPalette,
   BlockPalette,
   BlockStyle,
   BlockNode,
@@ -50,5 +52,5 @@ export {
   DefaultBlockScene,
   style,
   copyStyle,
-  cloneStyle
+  cloneStyle,
 };
