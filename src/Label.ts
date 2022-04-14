@@ -56,7 +56,7 @@ export default class Label {
       bounds.width,
       bounds.actualBoundingBoxAscent + bounds.actualBoundingBoxDescent
     );
-    console.log(bounds.width);
+    //console.log(bounds.width);
     this._measured = true;
   }
 
@@ -83,7 +83,7 @@ export default class Label {
   }
 
   glyphCount(counts: any, pagesPerTexture: number): number {
-    console.log(counts, pagesPerTexture);
+    //console.log(counts, pagesPerTexture);
     return this._text.length;
   }
 
@@ -99,6 +99,6 @@ export default class Label {
     ctx.font = this.font().fontString();
     ctx.fillStyle = fontColor.asRGBA();
     ctx.fillText(this.getText(), this._x, this._y);
-    console.log(this._x, this._y);
+    //console.log(this._x, this._y);
   }
 }
