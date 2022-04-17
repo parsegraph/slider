@@ -4989,10 +4989,10 @@ parse5@6.0.1:
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-6.0.1.tgz#e1a1c085c569b3dc08321184f19a39cc27f7c30b"
   integrity sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==
 
-parsegraph-artist@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/parsegraph-artist/-/parsegraph-artist-3.3.3.tgz#48e68a6feb70aa96cb90c9da501f87d505e41ff8"
-  integrity sha512-KSKjaemSa11l3MSXr2u/3A+xtIQNbs+rBgtk5pjzjV8TiByDdZStVNsgbYYNJsC/OD+vaO2I0uMwq3TdLD6e0A==
+parsegraph-artist@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/parsegraph-artist/-/parsegraph-artist-3.4.0.tgz#89a82d56f836f4c595926a9b68922574dd72c583"
+  integrity sha512-OOUu6jq9xv46V6vNO0ckTNIl01/QL0KxLxdeibDujDtZ6fngCkNBolAt1NiIZFYch/YbQbxtG0R/j47SEb1vZg==
   dependencies:
     parsegraph-camera "^1.4.11"
     parsegraph-color "^1.4.7"
