@@ -6,8 +6,11 @@ SCRIPT_FILES = \
 	src/index.ts \
 	src/BlockArtist.ts \
 	src/Block.ts \
+	src/DefaultBlockPalette.ts \
 	src/BlockType.ts \
 	src/BlockStyle.ts \
+	src/BlockCaret.ts \
+	src/Label.ts \
 	src/DefaultBlockScene.ts \
 	src/demo.ts \
 	test/test.ts
