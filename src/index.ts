@@ -1,8 +1,5 @@
 import Block, {
   BlockNode,
-  LINE_COLOR,
-  SELECTED_LINE_COLOR,
-  LINE_THICKNESS,
 } from "./Block";
 import BlockArtist from "./BlockArtist";
 import BlockScene from "./BlockScene";
@@ -12,6 +9,9 @@ import BlockCaret from "./BlockCaret";
 import Type, { nameType, readType } from "./BlockType";
 
 import BlockStyle, {
+  LINE_COLOR,
+  SELECTED_LINE_COLOR,
+  LINE_THICKNESS,
   BLOCK_STYLE,
   BLOCK_MATH_STYLE,
   SLOT_STYLE,

@@ -1,5 +1,4 @@
 import Artist, {
-  BUD_RADIUS,
   PaintedNode,
   BasicPainted,
 } from "parsegraph-artist";
@@ -10,13 +9,10 @@ import Direction, { Axis, Alignment } from "parsegraph-direction";
 import BlockStyle, {
   BUD_LEAF_SEPARATION,
   BUD_TO_BUD_VERTICAL_SEPARATION,
+  LINE_COLOR,
 } from "./BlockStyle";
 import Font from "parsegraph-font";
 import Label, { defaultFont } from "./Label";
-
-export const LINE_COLOR = new Color(0.8, 0.8, 0.8, 0.6);
-export const SELECTED_LINE_COLOR = new Color(0.8, 0.8, 0.8, 1);
-export const LINE_THICKNESS = (12 * BUD_RADIUS) / 8;
 
 export type BlockNode = PaintedNode<Block>;
 
@@ -271,6 +267,7 @@ export default class Block extends BasicPainted<Block> {
       node.nodeAt(direction).value()?.isBud() &&
       !node.nodeAt(direction).hasAnyNodes()
     ) {
+      console.log("Bud leaf");
       return BUD_LEAF_SEPARATION * style.horizontalSeparation;
     }
     return style.horizontalSeparation;

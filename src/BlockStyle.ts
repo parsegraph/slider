@@ -45,15 +45,23 @@ type BlockStyle = {
   horizontalSeparation: number;
 };
 
+export const LINE_COLOR = new Color(0.4, 0.4, 0.4, 0.6);
+export const SELECTED_LINE_COLOR = new Color(0.8, 0.8, 0.8, 1);
+export const LINE_THICKNESS = (12 * BUD_RADIUS) / 8;
+
+const lineColor = LINE_COLOR;
+const borderColor = lineColor;
+const selectedBorderColor = lineColor;
+
 const BLOCK_STYLE: BlockStyle = {
   mathMode: false,
   minWidth: MIN_BLOCK_WIDTH,
   minHeight: MIN_BLOCK_HEIGHT,
   horizontalPadding: 3 * BUD_RADIUS,
   verticalPadding: 0.5 * BUD_RADIUS,
-  borderColor: new Color(0.6, 1, 0.6, 1.0),
+  borderColor: borderColor,
   backgroundColor: new Color(1, 1, 1, 0.25),
-  selectedBorderColor: new Color(0.8, 0.8, 1, 1),
+  selectedBorderColor: selectedBorderColor,
   selectedBackgroundColor: new Color(0.75, 0.75, 1, 1),
   brightness: 0.75,
   borderRoundness: BUD_RADIUS * 3,
@@ -63,7 +71,7 @@ const BLOCK_STYLE: BlockStyle = {
   fontSize: FONT_SIZE,
   letterWidth: 0.61,
   verticalSeparation: 6 * VERTICAL_SEPARATION_PADDING,
-  horizontalSeparation: 7 * HORIZONTAL_SEPARATION_PADDING,
+  horizontalSeparation: 1 * HORIZONTAL_SEPARATION_PADDING,
 };
 
 const BLOCK_MATH_STYLE: BlockStyle = {
@@ -72,9 +80,9 @@ const BLOCK_MATH_STYLE: BlockStyle = {
   minHeight: MIN_BLOCK_HEIGHT_MATH,
   horizontalPadding: 2 * BUD_RADIUS,
   verticalPadding: 0.5 * BUD_RADIUS,
-  borderColor: new Color(0.6, 1, 0.6, 1),
+  borderColor: borderColor,
   backgroundColor: new Color(0.75, 1, 0.75, 1),
-  selectedBorderColor: new Color(0.8, 0.8, 1, 1),
+  selectedBorderColor: selectedBorderColor,
   selectedBackgroundColor: new Color(0.75, 0.75, 1, 1),
   brightness: 0.75,
   borderRoundness: BUD_RADIUS * 3,
@@ -93,9 +101,9 @@ const SLOT_STYLE: BlockStyle = {
   minHeight: MIN_BLOCK_HEIGHT,
   horizontalPadding: 3 * BUD_RADIUS,
   verticalPadding: 0.5 * BUD_RADIUS,
-  borderColor: new Color(0.5, 0.5, 0.5, 0.5),
+  borderColor: borderColor,
   backgroundColor: new Color(0.75, 0.75, 1, 0.5),
-  selectedBorderColor: new Color(0.95, 1, 0.95, 1),
+  selectedBorderColor: selectedBorderColor,
   selectedBackgroundColor: new Color(0.9, 1, 0.9, 1),
   brightness: 0.75,
   borderRoundness: BUD_RADIUS * 3,
@@ -135,9 +143,9 @@ const BUD_STYLE = {
   minHeight: BUD_RADIUS * 3,
   horizontalPadding: BUD_RADIUS / 2,
   verticalPadding: BUD_RADIUS / 2,
-  borderColor: new Color(0.8, 0.8, 0.8, 0.7),
-  backgroundColor: new Color(0.9, 0.9, 0.9, 0.9),
-  selectedBorderColor: new Color(1, 1, 0, 1),
+  borderColor: borderColor,
+  backgroundColor: new Color(0.9, 0.9, 0.9, 0.2),
+  selectedBorderColor: selectedBorderColor,
   selectedBackgroundColor: new Color(1, 1, 0.7, 1),
   brightness: 1.5,
   borderRoundness: BUD_RADIUS * 8,
@@ -146,7 +154,7 @@ const BUD_STYLE = {
   selectedFontColor: new Color(0, 0, 0, 1),
   fontSize: FONT_SIZE,
   letterWidth: 0.61,
-  verticalSeparation: 10.5 * VERTICAL_SEPARATION_PADDING,
+  verticalSeparation: 10 * VERTICAL_SEPARATION_PADDING,
   horizontalSeparation: 7 * HORIZONTAL_SEPARATION_PADDING,
 };
 
