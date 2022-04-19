@@ -1,6 +1,4 @@
-import Block, {
-  BlockNode,
-} from "./Block";
+import Block, { BlockNode } from "./Block";
 import BlockArtist from "./BlockArtist";
 import BlockScene from "./BlockScene";
 import BlockPalette from "./BlockPalette";

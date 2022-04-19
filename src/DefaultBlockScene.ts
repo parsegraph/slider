@@ -6,14 +6,8 @@ import Direction, {
 } from "parsegraph-direction";
 
 import BlockPainter, { BlockType } from "parsegraph-blockpainter";
-import {
-  BlockNode,
-} from "./Block";
-import {
-  SELECTED_LINE_COLOR,
-  LINE_COLOR,
-  LINE_THICKNESS,
-} from "./BlockStyle";
+import { BlockNode } from "./Block";
+import { SELECTED_LINE_COLOR, LINE_COLOR, LINE_THICKNESS } from "./BlockStyle";
 import Size from "parsegraph-size";
 import Rect from "parsegraph-rect";
 import Color from "parsegraph-color";

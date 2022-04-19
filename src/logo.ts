@@ -11,11 +11,11 @@ const palette = new DefaultBlockPalette();
 
 const buildGraph = () => {
   const car = new BlockCaret("u");
-  car.spawn('f', 'u');
-  car.spawn('b', 'u');
-  car.spawnMove('d', 'b');
+  car.spawn("f", "u");
+  car.spawn("b", "u");
+  car.spawnMove("d", "b");
   car.label("Parsegraph");
-  car.onClick(()=>{
+  car.onClick(() => {
     alert("HELLO!");
     return true;
   });
