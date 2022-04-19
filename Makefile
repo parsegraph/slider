@@ -4,6 +4,7 @@ SCRIPT_FILES = \
 	src/BlockPalette.ts \
 	src/BlockScene.ts \
 	src/index.ts \
+	src/logo.ts \
 	src/BlockArtist.ts \
 	src/Block.ts \
 	src/DefaultBlockPalette.ts \
