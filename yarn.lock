@@ -4989,10 +4989,10 @@ parse5@6.0.1:
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-6.0.1.tgz#e1a1c085c569b3dc08321184f19a39cc27f7c30b"
   integrity sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==
 
-parsegraph-artist@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/parsegraph-artist/-/parsegraph-artist-3.4.0.tgz#89a82d56f836f4c595926a9b68922574dd72c583"
-  integrity sha512-OOUu6jq9xv46V6vNO0ckTNIl01/QL0KxLxdeibDujDtZ6fngCkNBolAt1NiIZFYch/YbQbxtG0R/j47SEb1vZg==
+parsegraph-artist@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/parsegraph-artist/-/parsegraph-artist-3.4.1.tgz#60c9a6981aea6ca474fee72ab54bbacfe6e64c71"
+  integrity sha512-GUl8Pm2AazxRvhSbddHYNbhhmhTNjbj9nZZ3KOS8zVu3tjmwHyEWUPtBex2jBAhTXhtIuJ300CWYd4DrWFZs8A==
   dependencies:
     parsegraph-camera "^1.4.11"
     parsegraph-color "^1.4.7"
@@ -5002,7 +5002,7 @@ parsegraph-artist@^3.4.0:
     parsegraph-layout "^1.13.1"
     parsegraph-matrix "^1.4.11"
     parsegraph-method "^1.4.22"
-    parsegraph-projector "^1.10.0"
+    parsegraph-projector "^1.13.0"
     parsegraph-scene "^2.2.1"
     parsegraph-showincamera "^1.7.0"
     parsegraph-size "^1.7.0"
@@ -5199,6 +5199,18 @@ parsegraph-projector@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/parsegraph-projector/-/parsegraph-projector-1.10.0.tgz#f9455a2805eee237cb8491608607962a218254b4"
   integrity sha512-s14e+dTzlxuiLrZmOKpTwcM7N6IPZPV/9i8G/LcsH4czENm9Scg7dB0uWLnbIP3SRDJmE/PpAdaFvwYLslFyuQ==
+  dependencies:
+    parsegraph-compileprogram "^2.2.9"
+    parsegraph-matrix "^1.4.11"
+    parsegraph-method "^1.4.10"
+    parsegraph-rect "^1.4.7"
+    parsegraph-timing "^1.4.16"
+    parsegraph-timingbelt "^1.7.11"
+
+parsegraph-projector@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/parsegraph-projector/-/parsegraph-projector-1.13.0.tgz#29e6a18258361468084ddb84f0ce5407e30b53d8"
+  integrity sha512-0q8tNuFYvSbNn6FTqRAcBJz3LRUttP7uOZRzrJ7sCgW2ZeU8a/mwiouTmiANeJSqWPf39c0FDdAu3IkkgBSuNw==
   dependencies:
     parsegraph-compileprogram "^2.2.9"
     parsegraph-matrix "^1.4.11"
