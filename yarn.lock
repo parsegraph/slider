@@ -4846,9 +4846,9 @@ parse5@6.0.1:
   integrity sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==
 
 parsegraph-artist@^3.4.3:
-  version "3.4.6"
-  resolved "https://registry.yarnpkg.com/parsegraph-artist/-/parsegraph-artist-3.4.6.tgz#cb753d607a8645ab5aa7da2ce7af693f50bef4af"
-  integrity sha512-9KwOua+7zEgN3CzDoPEq9Ly5kShKEw4mV0O0MaAUsYb5C9o9sF0n/tIAHjNL36yt8KJdXtAQk2I4y0lbHLXGlA==
+  version "3.4.7"
+  resolved "https://registry.yarnpkg.com/parsegraph-artist/-/parsegraph-artist-3.4.7.tgz#a4464b98d5598f75723db9d690cddfdcf579c374"
+  integrity sha512-BVkd+b8VFr//fz5qZj1ITHjfMTXR4SodNytaVdDAPVE/17tnGuMad3Pg438dkyJPxv4izOpHLNUWbehDvpaJ1Q==
   dependencies:
     parsegraph-camera "^1.4.13"
     parsegraph-color "^1.4.7"
