@@ -25,6 +25,7 @@ export const BUD_LEAF_SEPARATION = 1;
 export const BUD_TO_BUD_VERTICAL_SEPARATION = VERTICAL_SEPARATION_PADDING / 2; // BUD_RADIUS * 4.5;
 
 type BlockStyle = {
+  bud: boolean;
   mathMode: boolean;
   minWidth: number;
   minHeight: number;
@@ -54,6 +55,7 @@ const borderColor = lineColor;
 const selectedBorderColor = lineColor;
 
 const BLOCK_STYLE: BlockStyle = {
+  bud: false,
   mathMode: false,
   minWidth: MIN_BLOCK_WIDTH,
   minHeight: MIN_BLOCK_HEIGHT,
@@ -75,6 +77,7 @@ const BLOCK_STYLE: BlockStyle = {
 };
 
 const BLOCK_MATH_STYLE: BlockStyle = {
+  bud: false,
   mathMode: true,
   minWidth: MIN_BLOCK_WIDTH_MATH,
   minHeight: MIN_BLOCK_HEIGHT_MATH,
@@ -96,6 +99,7 @@ const BLOCK_MATH_STYLE: BlockStyle = {
 };
 
 const SLOT_STYLE: BlockStyle = {
+  bud: false,
   mathMode: false,
   minWidth: MIN_BLOCK_WIDTH,
   minHeight: MIN_BLOCK_HEIGHT,
@@ -117,6 +121,7 @@ const SLOT_STYLE: BlockStyle = {
 };
 
 const SLOT_MATH_STYLE = {
+  bud: false,
   mathMode: true,
   minWidth: MIN_BLOCK_WIDTH_MATH,
   minHeight: MIN_BLOCK_HEIGHT_MATH,
@@ -139,6 +144,7 @@ const SLOT_MATH_STYLE = {
 SLOT_MATH_STYLE.borderColor.setA(1);
 
 const BUD_STYLE = {
+  bud: true,
   minWidth: BUD_RADIUS * 3,
   minHeight: BUD_RADIUS * 3,
   horizontalPadding: BUD_RADIUS / 2,

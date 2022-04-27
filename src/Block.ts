@@ -18,7 +18,6 @@ export default class Block extends BasicPainted<Block> {
   _label: Label;
   _selected: boolean;
   _style: BlockStyle;
-  _bud: boolean;
 
   constructor(node: BlockNode, style: BlockStyle, artist: Artist<Block>) {
     super(node, artist);
@@ -27,7 +26,6 @@ export default class Block extends BasicPainted<Block> {
     this._style = style;
     this._label = null;
     this._selected = false;
-    this._bud = false;
   }
 
   horizontalPadding(): number {
@@ -237,14 +235,14 @@ export default class Block extends BasicPainted<Block> {
   }
 
   isBud() {
-    return this._bud;
+    return this.blockStyle().bud;
   }
 
   verticalSeparation(direction: Direction): number {
     const node = this.node();
     if (
       this.isBud() &&
-      node.nodeAt(direction)?.value()?.isBud &&
+      node.nodeAt(direction)?.value() instanceof Block &&
       node.nodeAt(direction).value().isBud()
     ) {
       return (
@@ -260,11 +258,10 @@ export default class Block extends BasicPainted<Block> {
 
     if (
       node.hasNode(direction) &&
-      node.nodeAt(direction).value()?.isBud &&
-      node.nodeAt(direction).value()?.isBud() &&
+      node.nodeAt(direction).value() instanceof Block &&
+      node.nodeAt(direction).value().isBud() &&
       !node.nodeAt(direction).hasAnyNodes()
     ) {
-      console.log("Bud leaf");
       return BUD_LEAF_SEPARATION * style.horizontalSeparation;
     }
     return style.horizontalSeparation;
