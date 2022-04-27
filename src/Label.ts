@@ -95,10 +95,14 @@ export default class Label {
 
   paint(proj: Projector, fontColor: Color) {
     const ctx = proj.overlay();
+    ctx.save();
     ctx.textBaseline = "middle";
     ctx.font = this.font().fontString();
     ctx.fillStyle = fontColor.asRGBA();
-    ctx.fillText(this.getText(), this._x, this._y);
+    ctx.translate(this._x, this._y);
+    ctx.scale(this._scale, this._scale);
+    ctx.fillText(this.getText(), 0, 0);
+    ctx.restore();
     // console.log(this._x, this._y);
   }
 }
