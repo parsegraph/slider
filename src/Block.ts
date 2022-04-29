@@ -6,7 +6,7 @@ import Direction, { Axis, Alignment } from "parsegraph-direction";
 import BlockStyle, {
   BUD_LEAF_SEPARATION,
   BUD_TO_BUD_VERTICAL_SEPARATION,
-  LINE_COLOR,
+  copyStyle,
 } from "./BlockStyle";
 import Font from "parsegraph-font";
 import Label, { defaultFont } from "./Label";
@@ -37,7 +37,7 @@ export default class Block extends BasicPainted<Block> {
   }
 
   lineColor() {
-    return LINE_COLOR;
+    return this.isSelected() ? this.blockStyle().selectedLineColor : this.blockStyle().lineColor;
   }
 
   focused() {
@@ -84,12 +84,15 @@ export default class Block extends BasicPainted<Block> {
     return this._style;
   }
 
-  setBlockStyle(style: BlockStyle): void {
+  setBlockStyle(style: BlockStyle | string): void {
+    if (typeof style === "string") {
+      style = copyStyle(style);
+    }
     if (this._style == style) {
       // Ignore idempotent style changes.
       return;
     }
-    this._style = style;
+    this._style = style as BlockStyle;
     this.invalidateLayout();
   }
 

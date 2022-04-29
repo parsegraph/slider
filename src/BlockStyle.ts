@@ -44,6 +44,8 @@ type BlockStyle = {
   letterWidth: number;
   verticalSeparation: number;
   horizontalSeparation: number;
+  lineColor: Color;
+  selectedLineColor: Color;
 };
 
 export const LINE_COLOR = new Color(0.4, 0.4, 0.4, 0.6);
@@ -51,6 +53,7 @@ export const SELECTED_LINE_COLOR = new Color(0.8, 0.8, 0.8, 1);
 export const LINE_THICKNESS = (12 * BUD_RADIUS) / 8;
 
 const lineColor = LINE_COLOR;
+const selectedLineColor = lineColor;
 const borderColor = lineColor;
 const selectedBorderColor = lineColor;
 
@@ -72,6 +75,8 @@ const BLOCK_STYLE: BlockStyle = {
   selectedFontColor: new Color(0, 0, 0, 1),
   fontSize: FONT_SIZE,
   letterWidth: 0.61,
+  lineColor: lineColor,
+  selectedLineColor: selectedLineColor,
   verticalSeparation: 6 * VERTICAL_SEPARATION_PADDING,
   horizontalSeparation: 1 * HORIZONTAL_SEPARATION_PADDING,
 };
@@ -96,6 +101,8 @@ const BLOCK_MATH_STYLE: BlockStyle = {
   letterWidth: 0.61,
   verticalSeparation: 6 * VERTICAL_SEPARATION_PADDING_MATH,
   horizontalSeparation: 7 * HORIZONTAL_SEPARATION_PADDING_MATH,
+  lineColor: lineColor,
+  selectedLineColor: selectedLineColor,
 };
 
 const SLOT_STYLE: BlockStyle = {
@@ -118,6 +125,8 @@ const SLOT_STYLE: BlockStyle = {
   letterWidth: 0.61,
   verticalSeparation: 6 * VERTICAL_SEPARATION_PADDING,
   horizontalSeparation: 7 * HORIZONTAL_SEPARATION_PADDING,
+  lineColor: lineColor,
+  selectedLineColor: selectedLineColor,
 };
 
 const SLOT_MATH_STYLE = {
@@ -140,6 +149,8 @@ const SLOT_MATH_STYLE = {
   letterWidth: 0.61,
   verticalSeparation: 6 * VERTICAL_SEPARATION_PADDING_MATH,
   horizontalSeparation: 7 * HORIZONTAL_SEPARATION_PADDING_MATH,
+  lineColor: lineColor,
+  selectedLineColor: selectedLineColor,
 };
 SLOT_MATH_STYLE.borderColor.setA(1);
 
@@ -162,6 +173,8 @@ const BUD_STYLE = {
   letterWidth: 0.61,
   verticalSeparation: 10 * VERTICAL_SEPARATION_PADDING,
   horizontalSeparation: 7 * HORIZONTAL_SEPARATION_PADDING,
+  lineColor: lineColor,
+  selectedLineColor: selectedLineColor,
 };
 
 export function cloneStyle(style: any): any {

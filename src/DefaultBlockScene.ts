@@ -7,7 +7,7 @@ import Direction, {
 
 import BlockPainter, { BlockType } from "parsegraph-blockpainter";
 import { BlockNode } from "./Block";
-import { SELECTED_LINE_COLOR, LINE_COLOR, LINE_THICKNESS } from "./BlockStyle";
+import { LINE_THICKNESS } from "./BlockStyle";
 import Size from "parsegraph-size";
 import Rect from "parsegraph-rect";
 import Color from "parsegraph-color";
@@ -143,12 +143,14 @@ export default class DefaultBlockScene extends BlockScene {
     }
     const directionData = node.neighborAt(direction);
 
-    const selectedColor = SELECTED_LINE_COLOR.premultiply(
-      this.backgroundColor()
-    );
-    const color = LINE_COLOR.premultiply(this.backgroundColor());
-
     const block = node.value();
+    const selectedColor = block
+      .blockStyle()
+      .selectedLineColor.premultiply(this.backgroundColor());
+    const color = block
+      .blockStyle()
+      .lineColor.premultiply(this.backgroundColor());
+
     const layout = block.getLayout();
 
     const painter = this._blockPainter;
