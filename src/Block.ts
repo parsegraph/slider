@@ -37,7 +37,9 @@ export default class Block extends BasicPainted<Block> {
   }
 
   lineColor() {
-    return this.isSelected() ? this.blockStyle().selectedLineColor : this.blockStyle().lineColor;
+    return this.isSelected()
+      ? this.blockStyle().selectedLineColor
+      : this.blockStyle().lineColor;
   }
 
   focused() {

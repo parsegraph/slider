@@ -66,9 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
   pizza.populate(n);
 
   const refresh = () => {
+    proj.overlay().resetTransform();
+    proj.overlay().clearRect(0, 0, proj.width(), proj.height());
     const n = buildGraph();
     pizza.populate(n);
-    proj.glProvider().render();
+    //proj.glProvider().render();
     cam.setSize(proj.width(), proj.height());
     showInCamera(pizza.root(), cam, false);
     proj.overlay().resetTransform();

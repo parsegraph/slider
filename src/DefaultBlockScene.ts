@@ -5,7 +5,10 @@ import Direction, {
   directionSign,
 } from "parsegraph-direction";
 
-import BlockPainter, { BlockType } from "parsegraph-blockpainter";
+import BlockPainter, {
+  CanvasBlockPainter,
+  BlockType,
+} from "parsegraph-blockpainter";
 import { BlockNode } from "./Block";
 import { LINE_THICKNESS } from "./BlockStyle";
 import Size from "parsegraph-size";
@@ -36,10 +39,7 @@ export default class DefaultBlockScene extends BlockScene {
     this._backgroundColor = new Color(0, 0, 0, 0);
     this._forceSimple = false;
 
-    this._blockPainter = new BlockPainter(
-      this.projector().glProvider(),
-      blockType
-    );
+    this._blockPainter = new CanvasBlockPainter(projector.overlay(), blockType);
     this._renderBlocks = true;
 
     this._renderText = true;
@@ -81,6 +81,7 @@ export default class DefaultBlockScene extends BlockScene {
   initBlockBuffer(counts: any) {
     this._consecutiveRenders = 0;
     this._mass = counts.numBlocks;
+    this._blockPainter.clear();
     this._blockPainter.initBuffer(counts.numBlocks);
   }
 
