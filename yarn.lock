@@ -3812,10 +3812,10 @@ parse5@6.0.1:
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-6.0.1.tgz#e1a1c085c569b3dc08321184f19a39cc27f7c30b"
   integrity sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==
 
-parsegraph-artist@^3.4.24:
-  version "3.4.24"
-  resolved "https://registry.yarnpkg.com/parsegraph-artist/-/parsegraph-artist-3.4.24.tgz#7c728cda1dd5ec7fd32af271a2e4fbb5a3399b5e"
-  integrity sha512-fA2bv9Uqq51UmbDsaALO8MGhvfeHdjJpQMIyGMBVyaKOEOZ/AP7VdWHYF0EQRi1aZPDlx61mMTJK2JflsgtKCA==
+parsegraph-artist@^3.4.26:
+  version "3.4.26"
+  resolved "https://registry.yarnpkg.com/parsegraph-artist/-/parsegraph-artist-3.4.26.tgz#2026ba8e08a5d614cd85c5e07c8bd52d52367a1e"
+  integrity sha512-BAIFySsDu/pRd2Dxrg0i6eCpkoIJwYgFDL0UEGgnGQg/Sb8ejDZ5pbLIrAR8dWOvkxuZa4q2lQYcmDgBynJMlQ==
   dependencies:
     parsegraph-camera "^1.4.18"
     parsegraph-color "^1.4.7"
@@ -3826,7 +3826,7 @@ parsegraph-artist@^3.4.24:
     parsegraph-matrix "^1.4.12"
     parsegraph-method "^1.4.22"
     parsegraph-projector "^1.14.0"
-    parsegraph-scene "^2.2.23"
+    parsegraph-scene "^2.3.1"
     parsegraph-showincamera "^1.7.4"
     parsegraph-size "^1.7.1"
     parsegraph-timing "^1.4.16"
@@ -3964,6 +3964,19 @@ parsegraph-scene@^2.2.23:
   version "2.2.23"
   resolved "https://registry.yarnpkg.com/parsegraph-scene/-/parsegraph-scene-2.2.23.tgz#1ffabeac57c16c3bf7033573e34661948fbcad0e"
   integrity sha512-ykcyzvuxlWMp1SHvpse+37dTBO6rD6tQdWAwjcXsR7cxFf4IjiEOk4AHAX6qnvM1D50DKaPpRk/JbBRX5wp86A==
+  dependencies:
+    parsegraph-camera "^1.4.18"
+    parsegraph-layout "^1.13.6"
+    parsegraph-matrix "^1.4.12"
+    parsegraph-method "^1.4.22"
+    parsegraph-projector "^1.14.0"
+    parsegraph-timing "^1.4.16"
+    parsegraph-timingbelt "^1.7.11"
+
+parsegraph-scene@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/parsegraph-scene/-/parsegraph-scene-2.3.1.tgz#cd4ae30ece274c2ff6b4735751bed364ddecb834"
+  integrity sha512-nPv2Oi2013SfGQCS8lvwApkYIrD2erRtAzmXYRzANtBh0gbs/vaqXJBqV+a9F/eozWnirQCrZ2oKHNJsXvCrOQ==
   dependencies:
     parsegraph-camera "^1.4.18"
     parsegraph-layout "^1.13.6"
