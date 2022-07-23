@@ -16,7 +16,7 @@ export default class BlockPalette implements InplaceNodePalette<Block> {
     return this.spawn();
   }
 
-  artist() {
+  artist():Artist<Block> {
     return this._artist;
   }
 
