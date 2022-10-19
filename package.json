@@ -1,6 +1,6 @@
 {
   "name": "parsegraph-block",
-  "version": "4.4.19",
+  "version": "4.4.21",
   "description": "block",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -34,8 +34,11 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
     "jest": "^28.0.3",
+    "jest-environment-jsdom": "^29.2.1",
     "jsdom": "^19.0.0",
     "jsdom-global": "^3.0.2",
+    "parsegraph-checkglerror": "^1.5.3",
+    "parsegraph-log": "^1.7.3",
     "prettier": "^2.6.2",
     "raw-loader": "^4.0.2",
     "source-map-loader": "^3.0.1",
@@ -52,19 +55,8 @@
     "parsegraph-log": "^1.7.3"
   },
   "dependencies": {
-    "parsegraph-artist": "^3.4.26",
-    "parsegraph-blockpainter": "^1.7.1",
-    "parsegraph-camera": "^1.4.18",
-    "parsegraph-color": "^1.4.7",
-    "parsegraph-direction": "^2.1.0",
-    "parsegraph-font": "^1.7.4",
-    "parsegraph-method": "^1.4.22",
-    "parsegraph-projector": "^1.14.0",
-    "parsegraph-rect": "^1.5.1",
-    "parsegraph-scene": "^2.2.23",
-    "parsegraph-showincamera": "^1.7.4",
-    "parsegraph-size": "^1.7.1",
-    "parsegraph-timing": "^1.4.16",
-    "parsegraph-timingbelt": "^1.7.11"
+    "parsegraph-artist": "^3.4.29",
+    "parsegraph-blockpainter": "^1.7.2",
+    "parsegraph-font": "^1.7.4"
   }
 }

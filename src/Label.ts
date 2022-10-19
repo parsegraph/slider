@@ -82,6 +82,7 @@ export default class Label {
     this._text = text;
   }
 
+  /* eslint-disable-next-line */
   glyphCount(counts: any, pagesPerTexture: number): number {
     // console.log(counts, pagesPerTexture);
     return this._text.length;
