@@ -78,8 +78,13 @@ export default class Label {
     return this._text;
   }
 
+  invalidate() {
+    this._measured = false;
+  }
+
   setText(text: string) {
     this._text = text;
+    this.invalidate();
   }
 
   /* eslint-disable-next-line */
