@@ -18,6 +18,7 @@ export default class Block extends BasicPainted<Block> {
   _label: Label;
   _selected: boolean;
   _style: BlockStyle;
+  _labelWeight: number;
 
   constructor(node: BlockNode, style: BlockStyle, artist: Artist<Block>) {
     super(node, artist);
@@ -26,6 +27,7 @@ export default class Block extends BasicPainted<Block> {
     this._style = style;
     this._label = null;
     this._selected = false;
+    this._labelWeight = 1;
   }
 
   horizontalPadding(): number {
@@ -133,6 +135,14 @@ export default class Block extends BasicPainted<Block> {
     }
     this._label.setText(text);
     this.invalidateLayout();
+  }
+
+  labelWeight(): number {
+    return this._labelWeight;
+  }
+
+  setLabelWeight(labelWeight: number) {
+    this._labelWeight = labelWeight;
   }
 
   isSelected(): boolean {

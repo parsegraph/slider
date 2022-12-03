@@ -18,6 +18,8 @@ import log, { logEnterc, logLeave } from "parsegraph-log";
 import { Projector } from "parsegraph-projector";
 import BlockScene from "./BlockScene";
 
+const LABEL_WEIGHT_MULTIPLIER = 12;
+
 export default class DefaultBlockScene extends BlockScene {
   _backgroundColor: Color;
   _blockPainter: BlockPainter;
@@ -307,19 +309,30 @@ export default class DefaultBlockScene extends BlockScene {
       );
     }
 
-    if (!this.forceSimple() && this.isTextRenderingEnabled()) {
-      this.blocks().forEach((node) => {
-        const block = node.value();
-        const label = block.realLabel();
-        const style = block.blockStyle();
-        if (label) {
-          const fontColor = block.isSelected()
-            ? style.selectedFontColor
-            : style.fontColor;
-          label.paint(this.projector(), fontColor);
-        }
-      });
+    if (this.forceSimple() || !this.isTextRenderingEnabled()) {
+      return false;
     }
+
+    // Draw each block.
+    this.blocks().forEach((node) => {
+      const block = node.value();
+      const label = block.realLabel();
+      const weight = block.labelWeight();
+      const style = block.blockStyle();
+      if (label) {
+        const fontColor = block.isSelected()
+          ? style.selectedFontColor
+          : style.fontColor;
+        label.paint(this.projector(), fontColor);
+      }
+      this.worldTransform().labels().draw(
+        block.label(),
+        block.getLayout().absoluteX(),
+        block.getLayout().absoluteY(),
+        weight * LABEL_WEIGHT_MULTIPLIER,
+        block.getLayout().absoluteScale()
+      )
+    });
 
     return false;
   }
