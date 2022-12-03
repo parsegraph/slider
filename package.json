@@ -1,6 +1,6 @@
 {
   "name": "parsegraph-block",
-  "version": "4.4.28",
+  "version": "4.4.29",
   "description": "block",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
