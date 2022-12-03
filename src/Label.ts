@@ -102,6 +102,7 @@ export default class Label {
   paint(proj: Projector, fontColor: Color) {
     const ctx = proj.overlay();
     ctx.save();
+    ctx.textAlign = "left";
     ctx.textBaseline = "middle";
     ctx.font = this.font().fontString();
     ctx.fillStyle = fontColor.asRGBA();
