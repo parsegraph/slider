@@ -324,15 +324,16 @@ export default class DefaultBlockScene extends BlockScene {
           ? style.selectedFontColor
           : style.fontColor;
         label.paint(this.projector(), fontColor);
+        this.worldTransform()
+          .labels()
+          ?.draw(
+            block.label(),
+            block.getLayout().absoluteX(),
+            block.getLayout().absoluteY(),
+            weight * LABEL_WEIGHT_MULTIPLIER,
+            block.getLayout().absoluteScale() * 0.5
+          );
       }
-      this.worldTransform()
-        .labels()?.draw(
-          block.label(),
-          block.getLayout().absoluteX(),
-          block.getLayout().absoluteY(),
-          weight * LABEL_WEIGHT_MULTIPLIER,
-          block.getLayout().absoluteScale()
-        );
     });
 
     return false;
