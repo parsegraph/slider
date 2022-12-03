@@ -326,8 +326,7 @@ export default class DefaultBlockScene extends BlockScene {
         label.paint(this.projector(), fontColor);
       }
       this.worldTransform()
-        .labels()
-        .draw(
+        .labels()?.draw(
           block.label(),
           block.getLayout().absoluteX(),
           block.getLayout().absoluteY(),
