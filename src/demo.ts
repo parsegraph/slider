@@ -9,6 +9,8 @@ import Camera from "parsegraph-camera";
 import { showInCamera } from "parsegraph-showincamera";
 import DefaultBlockPalette from "./DefaultBlockPalette";
 
+import { WorldLabels } from "parsegraph-scene";
+
 const palette = new DefaultBlockPalette();
 
 const buildGraph = () => {
@@ -44,6 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const belt = new TimingBelt();
   root.appendChild(proj.container());
 
+  const labels = new WorldLabels();
+
   setTimeout(() => {
     proj.glProvider().canvas();
     proj.overlay();
@@ -53,8 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     proj.overlay().translate(proj.width() / 2, proj.height() / 2);
     belt.addRenderable(pizza);
     cam.setSize(proj.width(), proj.height());
-    showInCamera(pizza.root(), cam, false);
     const wt = WorldTransform.fromCamera(pizza.root(), cam);
+    wt.setLabels(labels);
     pizza.setWorldTransform(wt);
   }, 0);
 
@@ -65,21 +69,28 @@ document.addEventListener("DOMContentLoaded", () => {
   n.value().setLabel("No time");
   pizza.populate(n);
 
-  const refresh = () => {
-    proj.overlay().resetTransform();
-    proj.overlay().clearRect(0, 0, proj.width(), proj.height());
-    const n = buildGraph();
-    pizza.populate(n);
-    // proj.glProvider().render();
+  const redraw = () => {
+    labels.clear();
     cam.setSize(proj.width(), proj.height());
-    showInCamera(pizza.root(), cam, false);
     proj.overlay().resetTransform();
     proj.overlay().clearRect(0, 0, proj.width(), proj.height());
     proj.overlay().scale(cam.scale(), cam.scale());
     proj.overlay().translate(cam.x(), cam.y());
     const wt = WorldTransform.fromCamera(pizza.root(), cam);
+    wt.setLabels(labels);
     pizza.setWorldTransform(wt);
-    belt.scheduleUpdate();
+    pizza.paint();
+    pizza.render();
+    labels.render(proj, cam.scale());
+    // belt.scheduleUpdate();
+  };
+
+  const refresh = () => {
+    proj.overlay().resetTransform();
+    proj.overlay().clearRect(0, 0, proj.width(), proj.height());
+    const n = buildGraph();
+    pizza.populate(n);
+    redraw();
     const rand = () => Math.floor(Math.random() * 255);
     document.body.style.backgroundColor = `rgb(${rand()}, ${rand()}, ${rand()})`;
   };
@@ -106,6 +117,34 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const interval = 3000;
   const dotInterval = 500;
+  root.tabIndex = 0;
+  root.focus();
+
+  let clicked = false;
+  root.addEventListener("mousedown", (e) => {
+    if (e.button === 0) {
+      clicked = true;
+    }
+  });
+  root.addEventListener("mousemove", (e) => {
+    if (!clicked) {
+      return;
+    }
+    console.log(e.movementX);
+    cam.adjustOrigin(e.movementX / cam.scale(), e.movementY / cam.scale());
+    redraw();
+  });
+  root.addEventListener("mouseup", (e) => {
+    if (e.button === 0) {
+      clicked = false;
+    }
+  });
+  root.addEventListener("wheel", (e) => {
+    const zoomIn = (e as WheelEvent).deltaY < 0;
+    console.log(e);
+    cam.zoomToPoint(zoomIn ? 1.1 : 0.9, e.clientX, e.clientY);
+    redraw();
+  });
   root.addEventListener("click", () => {
     if (timer) {
       clearInterval(timer);
