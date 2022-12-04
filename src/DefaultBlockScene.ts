@@ -331,7 +331,8 @@ export default class DefaultBlockScene extends BlockScene {
             block.getLayout().absoluteX(),
             block.getLayout().absoluteY(),
             weight * LABEL_WEIGHT_MULTIPLIER,
-            block.getLayout().absoluteScale() * 0.5
+            block.getLayout().absoluteScale() * 0.5,
+            block.blockStyle().backgroundColor
           );
       }
     });

@@ -8,8 +8,10 @@ import TimingBelt from "parsegraph-timingbelt";
 import Camera from "parsegraph-camera";
 import { showInCamera } from "parsegraph-showincamera";
 import DefaultBlockPalette from "./DefaultBlockPalette";
+import Color from 'parsegraph-color';
 
 import { WorldLabels } from "parsegraph-scene";
+import {copyStyle} from "./BlockStyle";
 
 const palette = new DefaultBlockPalette();
 
@@ -32,6 +34,10 @@ const buildGraph = () => {
     }
     car.spawn(dir, "b");
     car.node().value().setLabel("No time");
+
+    const style = copyStyle('b')
+    style.backgroundColor = Color.random();
+    car.node().value().setBlockStyle(style);
     car.pull(dir);
     car.move(dir);
   }
