@@ -48,30 +48,35 @@ type BlockStyle = {
   selectedLineColor: Color;
 };
 
-export const LINE_COLOR = new Color(0.4, 0.4, 0.4, 0.6);
+export const LINE_COLOR = new Color(0.5, 0.4, 0.4, 0.5);
 export const SELECTED_LINE_COLOR = new Color(0.8, 0.8, 0.8, 1);
-export const LINE_THICKNESS = (12 * BUD_RADIUS) / 8;
+export const LINE_THICKNESS = BUD_RADIUS/4;
+
+const BACKGROUND_COLOR = new Color(250/255, 244/255, 236/255, 0.2);
+const FONT_COLOR = new Color(0.125, 0.125, 0.125, 1);
 
 const lineColor = LINE_COLOR;
 const selectedLineColor = lineColor;
 const borderColor = lineColor;
 const selectedBorderColor = lineColor;
 
+const BORDER_THICKNESS = 0.05;
+
 const BLOCK_STYLE: BlockStyle = {
   bud: false,
   mathMode: false,
   minWidth: MIN_BLOCK_WIDTH,
   minHeight: MIN_BLOCK_HEIGHT,
-  horizontalPadding: 3 * BUD_RADIUS,
-  verticalPadding: 0.5 * BUD_RADIUS,
+  horizontalPadding: 4 * BUD_RADIUS,
+  verticalPadding: BUD_RADIUS,
   borderColor: borderColor,
-  backgroundColor: new Color(1, 1, 1, 0.25),
+  backgroundColor: BACKGROUND_COLOR,
   selectedBorderColor: selectedBorderColor,
   selectedBackgroundColor: new Color(0.75, 0.75, 1, 1),
   brightness: 0.75,
   borderRoundness: BUD_RADIUS * 3,
-  borderThickness: BUD_RADIUS * 2,
-  fontColor: new Color(0, 0, 0, 1),
+  borderThickness: BORDER_THICKNESS,
+  fontColor: FONT_COLOR,
   selectedFontColor: new Color(0, 0, 0, 1),
   fontSize: FONT_SIZE,
   letterWidth: 0.61,
@@ -89,13 +94,13 @@ const BLOCK_MATH_STYLE: BlockStyle = {
   horizontalPadding: 2 * BUD_RADIUS,
   verticalPadding: 0.5 * BUD_RADIUS,
   borderColor: borderColor,
-  backgroundColor: new Color(0.75, 1, 0.75, 1),
+  backgroundColor: BACKGROUND_COLOR,
   selectedBorderColor: selectedBorderColor,
   selectedBackgroundColor: new Color(0.75, 0.75, 1, 1),
   brightness: 0.75,
   borderRoundness: BUD_RADIUS * 3,
-  borderThickness: BUD_RADIUS * 2,
-  fontColor: new Color(0, 0, 0, 1),
+  borderThickness: BORDER_THICKNESS,
+  fontColor: FONT_COLOR,
   selectedFontColor: new Color(0, 0, 0, 1),
   fontSize: FONT_SIZE,
   letterWidth: 0.61,
@@ -113,13 +118,13 @@ const SLOT_STYLE: BlockStyle = {
   horizontalPadding: 3 * BUD_RADIUS,
   verticalPadding: 0.5 * BUD_RADIUS,
   borderColor: borderColor,
-  backgroundColor: new Color(0.75, 0.75, 1, 0.5),
+  backgroundColor: BACKGROUND_COLOR,
   selectedBorderColor: selectedBorderColor,
   selectedBackgroundColor: new Color(0.9, 1, 0.9, 1),
   brightness: 0.75,
   borderRoundness: BUD_RADIUS * 3,
-  borderThickness: BUD_RADIUS * 2,
-  fontColor: new Color(0, 0, 0, 1),
+  borderThickness: BORDER_THICKNESS,
+  fontColor: FONT_COLOR,
   selectedFontColor: new Color(0, 0, 0, 1),
   fontSize: FONT_SIZE,
   letterWidth: 0.61,
@@ -137,7 +142,7 @@ const SLOT_MATH_STYLE = {
   horizontalPadding: 2 * BUD_RADIUS,
   verticalPadding: 0.5 * BUD_RADIUS,
   borderRoundness: BUD_RADIUS * 3,
-  borderThickness: BUD_RADIUS * 2,
+  borderThickness: BORDER_THICKNESS,
   borderColor: SLOT_STYLE.borderColor,
   backgroundColor: SLOT_STYLE.backgroundColor,
   selectedBorderColor: SLOT_STYLE.selectedBorderColor,
@@ -158,16 +163,16 @@ const BUD_STYLE = {
   bud: true,
   minWidth: BUD_RADIUS * 3,
   minHeight: BUD_RADIUS * 3,
-  horizontalPadding: BUD_RADIUS / 2,
-  verticalPadding: BUD_RADIUS / 2,
+  horizontalPadding: BUD_RADIUS,
+  verticalPadding: BUD_RADIUS,
   borderColor: borderColor,
-  backgroundColor: new Color(0.9, 0.9, 0.9, 0.2),
+  backgroundColor: BACKGROUND_COLOR,
   selectedBorderColor: selectedBorderColor,
   selectedBackgroundColor: new Color(1, 1, 0.7, 1),
   brightness: 1.5,
   borderRoundness: BUD_RADIUS * 8,
-  borderThickness: BUD_RADIUS * 2,
-  fontColor: new Color(0, 0, 0, 1),
+  borderThickness: BORDER_THICKNESS,
+  fontColor: FONT_COLOR,
   selectedFontColor: new Color(0, 0, 0, 1),
   fontSize: FONT_SIZE,
   letterWidth: 0.61,
