@@ -1,3 +1,3 @@
-# parsegrah-block
+# parsegrah-slider
 
-This module contains a simple and primitive Parsegraph node value.
+This module contains a Parsegraph slider value.

@@ -1,4 +1,4 @@
-DIST_NAME = block
+DIST_NAME = slider
 
 SCRIPT_FILES = \
 	src/BlockPalette.ts \

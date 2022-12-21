@@ -31,5 +31,5 @@ jobs:
     - run: git push --tags
     - uses: actions/upload-artifact@v2
       with:
-        name: parsegraph-block-dev-${{ github.run_number }}-${{ matrix.node-version }}
-        path: parsegraph-block-dev.tgz
+        name: parsegraph-slider-dev-${{ github.run_number }}-${{ matrix.node-version }}
+        path: parsegraph-slider-dev.tgz

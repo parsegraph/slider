@@ -1,19 +1,19 @@
 {
-  "name": "parsegraph-block",
+  "name": "parsegraph-slider",
   "version": "4.5.1",
-  "description": "block",
+  "description": "slider",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/parsegraph/block.git"
+    "url": "git+ssh://git@github.com/parsegraph/slider.git"
   },
   "author": "Rainback, Inc.",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/parsegraph/block/issues"
+    "url": "https://github.com/parsegraph/slider/issues"
   },
-  "homepage": "https://github.com/parsegraph/block#readme",
+  "homepage": "https://github.com/parsegraph/slider#readme",
   "devDependencies": {
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.10",

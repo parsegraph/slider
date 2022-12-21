@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PUBLISH="npm pub parsegraph-block-dev.tgz --tag=dev"
+PUBLISH="npm pub parsegraph-slider-dev.tgz --tag=dev"
 $PUBLISH && exit
 for try in `seq 1 3`; do
     sleep $try

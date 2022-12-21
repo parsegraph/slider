@@ -1,6 +1,6 @@
-block*.zip
-block*.tgz
-parsegraph-block/
+slider*.zip
+slider*.tgz
+parsegraph-slider/
 
 # Logs
 logs
