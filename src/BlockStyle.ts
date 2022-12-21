@@ -53,6 +53,7 @@ export const SELECTED_LINE_COLOR = new Color(0.8, 0.8, 0.8, 1);
 export const LINE_THICKNESS = BUD_RADIUS/4;
 
 const BACKGROUND_COLOR = new Color(250/255, 244/255, 236/255, 0.2);
+const SLOT_BACKGROUND_COLOR = new Color(.73, .726, .719, .2);
 const FONT_COLOR = new Color(0.125, 0.125, 0.125, 1);
 
 const lineColor = LINE_COLOR;
@@ -118,7 +119,7 @@ const SLOT_STYLE: BlockStyle = {
   horizontalPadding: 3 * BUD_RADIUS,
   verticalPadding: 0.5 * BUD_RADIUS,
   borderColor: borderColor,
-  backgroundColor: BACKGROUND_COLOR,
+  backgroundColor: SLOT_BACKGROUND_COLOR,
   selectedBorderColor: selectedBorderColor,
   selectedBackgroundColor: new Color(0.9, 1, 0.9, 1),
   brightness: 0.75,
