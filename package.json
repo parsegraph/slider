@@ -1,6 +1,6 @@
 {
   "name": "parsegraph-slider",
-  "version": "4.5.1",
+  "version": "2.0.0",
   "description": "slider",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
