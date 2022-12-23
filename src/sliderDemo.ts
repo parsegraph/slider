@@ -1,18 +1,39 @@
 import Direction from "parsegraph-direction";
-import { Pizza, PaintedNode } from "parsegraph-artist";
+import { Pizza } from "parsegraph-artist";
 import { WorldTransform } from "parsegraph-scene";
-import Slider from "./Slider";
-import { DirectionCaret, DirectionNode } from "parsegraph-direction";
+import Block from "./Block";
+import { DirectionCaret } from "parsegraph-direction";
 import { BasicProjector } from "parsegraph-projector";
 import Camera from "parsegraph-camera";
 import { showInCamera } from "parsegraph-showincamera";
+import DefaultBlockPalette from "./DefaultBlockPalette";
 
 import { WorldLabels } from "parsegraph-scene";
 
-import SliderNode from "./SliderNode";
+const palette = new DefaultBlockPalette();
 
 const buildGraph = () => {
-  const root = new SliderNode();
+  const car = new DirectionCaret<Block>("u", palette);
+
+  const root = car.root();
+
+  const dirs = [
+    Direction.FORWARD,
+    Direction.DOWNWARD,
+    Direction.INWARD,
+    Direction.UPWARD,
+    Direction.BACKWARD,
+  ];
+  for (let i = 0; i < 20; ++i) {
+    let dir = Direction.NULL;
+    while (dir === Direction.NULL || car.has(dir)) {
+      dir = dirs[Math.floor(Math.random() * dirs.length)];
+    }
+    car.spawn(dir, "b");
+    car.node().value().setLabel("parsegraph");
+    car.pull(dir);
+    car.move(dir);
+  }
   return root;
 };
 
@@ -41,7 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const pizza = new Pizza(proj);
 
   const cam = new Camera();
-  const n = buildGraph();
+  const n = palette.spawn();
+  n.value().setLabel("No time");
   pizza.populate(n);
 
   const redraw = () => {

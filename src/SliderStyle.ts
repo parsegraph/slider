@@ -1,5 +1,4 @@
 import Color from "parsegraph-color";
-import Type, { readType } from "./SliderType";
 
 import {
   MIN_BLOCK_WIDTH,
@@ -9,9 +8,6 @@ import {
   BUD_RADIUS,
 } from "parsegraph-artist";
 
-// Configures graphs to appear grid-like; I call it 'math-mode'.
-export const MIN_BLOCK_WIDTH_MATH = BUD_RADIUS * 40;
-export const MIN_BLOCK_HEIGHT_MATH = MIN_BLOCK_WIDTH_MATH;
 export const HORIZONTAL_SEPARATION_PADDING_MATH = 2;
 export const VERTICAL_SEPARATION_PADDING_MATH = 2;
 
@@ -49,9 +45,9 @@ type SliderStyle = {
 
 export const LINE_COLOR = new Color(0.5, 0.4, 0.4, 0.5);
 export const SELECTED_LINE_COLOR = new Color(0.8, 0.8, 0.8, 1);
-export const LINE_THICKNESS = BUD_RADIUS/4;
+export const LINE_THICKNESS = BUD_RADIUS / 4;
 
-const BACKGROUND_COLOR = new Color(250/255, 244/255, 236/255, 0.2);
+const BACKGROUND_COLOR = new Color(250 / 255, 244 / 255, 236 / 255, 0.2);
 const FONT_COLOR = new Color(0.125, 0.125, 0.125, 1);
 
 const lineColor = LINE_COLOR;
@@ -62,7 +58,6 @@ const selectedBorderColor = lineColor;
 const BORDER_THICKNESS = 0.05;
 
 const DEFAULT_STYLE: SliderStyle = {
-  bud: false,
   mathMode: false,
   minWidth: MIN_BLOCK_WIDTH,
   minHeight: MIN_BLOCK_HEIGHT,
@@ -85,49 +80,6 @@ const DEFAULT_STYLE: SliderStyle = {
   horizontalSeparation: 1 * HORIZONTAL_SEPARATION_PADDING,
 };
 
-export function cloneStyle(style: any): any {
-  const rv: any = {};
-  for (const styleName in style) {
-    if (Object.prototype.hasOwnProperty.call(style, styleName)) {
-      rv[styleName] = style[styleName];
-    }
-  }
-  return rv;
-}
-
-export function copyStyle(type: any): any {
-  const rv: any = {};
-  const copiedStyle: any = style(type);
-
-  for (const styleName in copiedStyle) {
-    if (Object.prototype.hasOwnProperty.call(copiedStyle, styleName)) {
-      rv[styleName] = copiedStyle[styleName];
-    }
-  }
-
-  return rv;
-}
-
-export function style(type: Type | string, mathMode?: boolean): any {
-  if (typeof type === "string") {
-    type = readType(type);
-  }
-  switch (type as Type) {
-    case Type.BUD: {
-      return BUD_STYLE;
-    }
-    case Type.SLOT: {
-      return mathMode ? SLOT_MATH_STYLE : SLOT_STYLE;
-    }
-    case Type.BLOCK:
-    default: {
-      return mathMode ? BLOCK_MATH_STYLE : BLOCK_STYLE;
-    }
-  }
-}
-
 export default SliderStyle;
 
-export {
-  DEFAULT_STYLE,
-};
+export { DEFAULT_STYLE };

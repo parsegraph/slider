@@ -1,6 +1,6 @@
 enum Type {
   DEFAULT,
-  TOGGLE
+  TOGGLE,
 }
 export default Type;
 

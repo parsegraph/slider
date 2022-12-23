@@ -1,17 +1,17 @@
 import Artist, { PaintedNode, BasicPainted } from "parsegraph-artist";
 import Color from "parsegraph-color";
 import Size from "parsegraph-size";
-import Direction, { Axis, Alignment } from "parsegraph-direction";
+import Direction, {
+  Axis,
+  Alignment,
+  DirectionNode,
+} from "parsegraph-direction";
 
-import SliderStyle, {
-  BUD_LEAF_SEPARATION,
-  BUD_TO_BUD_VERTICAL_SEPARATION,
-  copyStyle,
-} from "./SliderStyle";
+import SliderStyle from "./SliderStyle";
 import Font from "parsegraph-font";
 import Label, { defaultFont } from "./Label";
-
-export type SliderNode = PaintedNode<Slider>;
+import SliderArtist from "./SliderArtist";
+import DefaultSliderScene from "./DefaultSliderScene";
 
 export default class Slider extends BasicPainted<Slider> {
   _focused: boolean;
@@ -55,17 +55,17 @@ export default class Slider extends BasicPainted<Slider> {
   }
 
   horizontalPadding(): number {
-    return this.blockStyle().horizontalPadding;
+    return this.style().horizontalPadding;
   }
 
   verticalPadding(): number {
-    return this.blockStyle().verticalPadding;
+    return this.style().verticalPadding;
   }
 
   lineColor() {
     return this.isSelected()
-      ? this.blockStyle().selectedLineColor
-      : this.blockStyle().lineColor;
+      ? this.style().selectedLineColor
+      : this.style().lineColor;
   }
 
   focused() {
@@ -105,29 +105,26 @@ export default class Slider extends BasicPainted<Slider> {
   }
 
   borderThickness(): number {
-    return this.blockStyle().borderThickness;
+    return this.style().borderThickness;
   }
 
-  blockStyle(): any {
+  style(): any {
     return this._style;
   }
 
-  setBlockStyle(style: BlockStyle | string): void {
-    if (typeof style === "string") {
-      style = copyStyle(style);
-    }
+  setStyle(style: SliderStyle): void {
     if (this._style == style) {
       // Ignore idempotent style changes.
       return;
     }
-    this._style = style as BlockStyle;
+    this._style = style;
     this.invalidateLayout();
   }
 
   backdropColor(): Color {
     return this.isSelected()
-      ? this.blockStyle().selectedBackgroundColor
-      : this.blockStyle().backgroundColor;
+      ? this.style().selectedBackgroundColor
+      : this.style().backgroundColor;
   }
 
   label(): string {
@@ -185,7 +182,7 @@ export default class Slider extends BasicPainted<Slider> {
     }
 
     // Find the size of this node's drawing area.
-    const style = this.blockStyle();
+    const style = this.style();
 
     const label = this.realLabel();
     if (label && !label.isEmpty()) {
@@ -204,105 +201,17 @@ export default class Slider extends BasicPainted<Slider> {
     }
 
     const node = this.node();
-    if (node.hasNode(Direction.INWARD)) {
-      const nestedNode = node.nodeAt(Direction.INWARD);
-      const nestedSize = nestedNode.value().getLayout().extentSize();
-      const scale = nestedNode.state().scale();
-
-      if (
-        node.nodeAlignmentMode(Direction.INWARD) == Alignment.INWARD_VERTICAL
-      ) {
-        // Align vertical.
-        bodySize.setWidth(
-          Math.max(bodySize.width(), scale * nestedSize.width())
-        );
-
-        if (this.label()) {
-          // Allow for the content's size.
-          bodySize.setHeight(
-            Math.max(
-              style.minHeight,
-              bodySize.height() +
-                this.verticalPadding() +
-                scale * nestedSize.height()
-            )
-          );
-        } else {
-          bodySize.setHeight(
-            Math.max(
-              bodySize.height(),
-              scale * nestedSize.height() + 2 * this.verticalPadding()
-            )
-          );
-        }
-      } else {
-        // Align horizontal.
-        if (this.label()) {
-          // Allow for the content's size.
-          bodySize.setWidth(
-            bodySize.width() +
-              this.horizontalPadding() +
-              scale * nestedSize.width()
-          );
-        } else {
-          bodySize.setWidth(
-            Math.max(bodySize.width(), scale * nestedSize.width())
-          );
-        }
-
-        bodySize.setHeight(
-          Math.max(
-            bodySize.height(),
-            scale * nestedSize.height() + 2 * this.verticalPadding()
-          )
-        );
-      }
-    }
-
-    // Buds appear circular
-    if (this.isBud()) {
-      const aspect = bodySize.width() / bodySize.height();
-      if (aspect < 2 && aspect > 1 / 2) {
-        bodySize.setWidth(Math.max(bodySize.width(), bodySize.height()));
-        bodySize.setHeight(bodySize.width());
-      }
-    }
-
     bodySize[0] = Math.max(style.minWidth, bodySize[0]);
     bodySize[1] = Math.max(style.minHeight, bodySize[1]);
     return bodySize;
   }
 
-  isBud() {
-    return this.blockStyle().bud;
-  }
-
   verticalSeparation(direction: Direction): number {
-    const node = this.node();
-    if (
-      this.isBud() &&
-      node.nodeAt(direction)?.value() instanceof Block &&
-      node.nodeAt(direction).value().isBud()
-    ) {
-      return (
-        this.blockStyle().verticalSeparation + BUD_TO_BUD_VERTICAL_SEPARATION
-      );
-    }
-    return this.blockStyle().verticalSeparation;
+    return this.style().verticalSeparation;
   }
 
   horizontalSeparation(direction: Direction): number {
-    const node = this.node();
-    const style = this.blockStyle();
-
-    if (
-      node.hasNode(direction) &&
-      node.nodeAt(direction).value() instanceof Block &&
-      node.nodeAt(direction).value().isBud() &&
-      !node.nodeAt(direction).hasAnyNodes()
-    ) {
-      return BUD_LEAF_SEPARATION * style.horizontalSeparation;
-    }
+    const style = this.style();
     return style.horizontalSeparation;
   }
 }

@@ -1,18 +1,18 @@
 import { NodeValues } from "parsegraph-artist";
 import { WorldTransform, WorldRenderable } from "parsegraph-scene";
 import { Projector } from "parsegraph-projector";
-import Block from "./Block";
+import Slider from "./Slider";
 import Method from "parsegraph-method";
 
-export default abstract class BlockScene implements WorldRenderable {
+export default abstract class SliderScene implements WorldRenderable {
   _projector: Projector;
-  _blocks: NodeValues<Block>;
+  _sliders: NodeValues<Slider>;
   _world: WorldTransform;
   private _onUpdate: Method;
 
   constructor(projector: Projector) {
     this._projector = projector;
-    this._blocks = null;
+    this._sliders = null;
     this._onUpdate = new Method();
   }
 
@@ -28,12 +28,12 @@ export default abstract class BlockScene implements WorldRenderable {
     this._onUpdate.set(listener, listenerObj);
   }
 
-  setBlocks(blocks: NodeValues<Block>) {
-    this._blocks = blocks;
+  setSliders(sliders: NodeValues<Slider>) {
+    this._sliders = sliders;
   }
 
-  blocks() {
-    return this._blocks;
+  sliders() {
+    return this._sliders;
   }
 
   setWorldTransform(world: WorldTransform) {

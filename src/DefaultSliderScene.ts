@@ -9,18 +9,18 @@ import BlockPainter, {
   CanvasBlockPainter,
   BlockType,
 } from "parsegraph-blockpainter";
-import { BlockNode } from "./Block";
-import { LINE_THICKNESS } from "./BlockStyle";
+import SliderNode from "./SliderNode";
+import { LINE_THICKNESS } from "./SliderStyle";
 import Size from "parsegraph-size";
 import Rect from "parsegraph-rect";
 import Color from "parsegraph-color";
 import log, { logEnterc, logLeave } from "parsegraph-log";
 import { Projector } from "parsegraph-projector";
-import BlockScene from "./BlockScene";
+import SliderScene from "./SliderScene";
 
 const LABEL_WEIGHT_MULTIPLIER = 12;
 
-export default class DefaultBlockScene extends BlockScene {
+export default class DefaultSliderScene extends SliderScene {
   _backgroundColor: Color;
   _blockPainter: BlockPainter;
   _renderBlocks: boolean;
@@ -35,7 +35,7 @@ export default class DefaultBlockScene extends BlockScene {
     return this._consecutiveRenders;
   }
 
-  constructor(projector: Projector, blockType: BlockType) {
+  constructor(projector: Projector, blockType: BlockType = BlockType.ROUNDED) {
     super(projector);
 
     this._backgroundColor = new Color(0, 0, 0, 0);
@@ -87,7 +87,7 @@ export default class DefaultBlockScene extends BlockScene {
     this._blockPainter.initBuffer(counts.numBlocks);
   }
 
-  countNode(node: BlockNode, counts: any): void {
+  countNode(node: SliderNode, counts: any): void {
     if (!counts.numBlocks) {
       counts.numBlocks = 0;
     }
@@ -109,13 +109,13 @@ export default class DefaultBlockScene extends BlockScene {
   paint(): boolean {
     logEnterc("DefaultNodePainter paints", "Painting paint group");
     const counts: { [key: string]: number } = {};
-    this.blocks().forEach((node) => {
+    this.sliders().forEach((node) => {
       log("Counting node {0}", node);
       this.countNode(node, counts);
     });
     log("Glyphs: {0}", counts.numGlyphs);
     this.initBlockBuffer(counts);
-    this.blocks().forEach((node) => {
+    this.sliders().forEach((node) => {
       this.drawNode(node);
     });
 
@@ -123,7 +123,7 @@ export default class DefaultBlockScene extends BlockScene {
     return false;
   }
 
-  drawNode(node: BlockNode) {
+  drawNode(node: SliderNode) {
     // const gl = this.gl();
     // if (gl.isContextLost()) {
     // return;
@@ -136,7 +136,7 @@ export default class DefaultBlockScene extends BlockScene {
     // checkGLError(gl, "After Node drawNode");
   }
 
-  drawLine(direction: Direction, node: BlockNode) {
+  drawLine(direction: Direction, node: SliderNode) {
     if (node.parentDirection() == direction) {
       return;
     }
@@ -148,11 +148,9 @@ export default class DefaultBlockScene extends BlockScene {
 
     const block = node.value();
     const selectedColor = block
-      .blockStyle()
+      .style()
       .selectedLineColor.premultiply(this.backgroundColor());
-    const color = block
-      .blockStyle()
-      .lineColor.premultiply(this.backgroundColor());
+    const color = block.style().lineColor.premultiply(this.backgroundColor());
 
     const layout = block.getLayout();
 
@@ -210,16 +208,16 @@ export default class DefaultBlockScene extends BlockScene {
     }
   }
 
-  paintLines(node: BlockNode) {
+  paintLines(node: SliderNode) {
     forEachCardinalDirection((dir: Direction) => {
       this.drawLine(dir, node);
     });
   }
 
-  paintBlock(node: BlockNode): void {
+  paintBlock(node: SliderNode): void {
     const block = node.value();
     const layout = block.getLayout();
-    const style = block.blockStyle();
+    const style = block.style();
     const painter = this._blockPainter;
     if (!style) {
       throw new Error("Block has no style");
@@ -315,11 +313,11 @@ export default class DefaultBlockScene extends BlockScene {
     }
 
     // Draw each block.
-    this.blocks().forEach((node) => {
+    this.sliders().forEach((node) => {
       const block = node.value();
       const label = block.realLabel();
       const weight = block.labelWeight();
-      const style = block.blockStyle();
+      const style = block.style();
       if (label) {
         const fontColor = block.isSelected()
           ? style.selectedFontColor
@@ -333,7 +331,7 @@ export default class DefaultBlockScene extends BlockScene {
             block.getLayout().absoluteY(),
             weight * LABEL_WEIGHT_MULTIPLIER,
             block.getLayout().absoluteScale() * 0.5,
-            block.blockStyle().backgroundColor
+            block.style().backgroundColor
           );
       }
     });
