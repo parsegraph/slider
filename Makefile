@@ -5,7 +5,6 @@ SCRIPT_FILES = \
 	src/DefaultSliderScene.ts \
 	src/index.ts \
 	src/SliderStyle.ts \
-	src/logo.ts \
 	src/SliderArtist.ts \
 	src/Slider.ts \
 	src/SliderNode.ts \
