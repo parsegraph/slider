@@ -2,7 +2,7 @@ const path = require("path");
 const { execSync} = require("child_process");
 const { readFileSync } = require("fs");
 
-const DIST_NAME = "block";
+const DIST_NAME = "slider";
 
 const relDir = (...pathFrags)=>path.resolve(__dirname, ...pathFrags);
 

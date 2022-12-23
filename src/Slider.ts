@@ -3,24 +3,28 @@ import Color from "parsegraph-color";
 import Size from "parsegraph-size";
 import Direction, { Axis, Alignment } from "parsegraph-direction";
 
-import BlockStyle, {
+import SliderStyle, {
   BUD_LEAF_SEPARATION,
   BUD_TO_BUD_VERTICAL_SEPARATION,
   copyStyle,
-} from "./BlockStyle";
+} from "./SliderStyle";
 import Font from "parsegraph-font";
 import Label, { defaultFont } from "./Label";
 
-export type BlockNode = PaintedNode<Block>;
+export type SliderNode = PaintedNode<Slider>;
 
-export default class Block extends BasicPainted<Block> {
+export default class Slider extends BasicPainted<Slider> {
   _focused: boolean;
   _label: Label;
   _selected: boolean;
-  _style: BlockStyle;
+  _style: SliderStyle;
   _labelWeight: number;
 
-  constructor(node: BlockNode, style: BlockStyle, artist: Artist<Block>) {
+  _min: number;
+  _max: number;
+  _value: number;
+
+  constructor(node: SliderNode, style: SliderStyle, artist: Artist<Slider>) {
     super(node, artist);
     this._focused = false;
     this.interact().setFocusListener(this.onFocus, this);
@@ -28,6 +32,26 @@ export default class Block extends BasicPainted<Block> {
     this._label = null;
     this._selected = false;
     this._labelWeight = 1;
+
+    this._min = 0;
+    this._max = 100;
+    this._value = this.mid();
+  }
+
+  max(): number {
+    return this._max;
+  }
+
+  min(): number {
+    return this._min;
+  }
+
+  range(): number {
+    return this.max() - this.min();
+  }
+
+  mid(): number {
+    return this.min() + this.range() / 2;
   }
 
   horizontalPadding(): number {
