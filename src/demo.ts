@@ -1,8 +1,5 @@
-import Direction from "parsegraph-direction";
-import { Pizza, PaintedNode } from "parsegraph-artist";
+import { Pizza } from "parsegraph-artist";
 import { WorldTransform } from "parsegraph-scene";
-import Slider from "./Slider";
-import { DirectionCaret, DirectionNode } from "parsegraph-direction";
 import { BasicProjector } from "parsegraph-projector";
 import Camera from "parsegraph-camera";
 import { showInCamera } from "parsegraph-showincamera";
@@ -73,14 +70,14 @@ document.addEventListener("DOMContentLoaded", () => {
     pizza.populate(n);
     showInCamera(n, cam, false);
     redraw();
-    //const rand = () => Math.floor(Math.random() * 255);
-    //document.body.style.backgroundColor = `rgb(${rand()}, ${rand()}, ${rand()})`;
+    // const rand = () => Math.floor(Math.random() * 255);
+    // document.body.style.backgroundColor = `rgb(${rand()}, ${rand()}, ${rand()})`;
     // document.body.style.backgroundColor = `rgb(233, 204, 164)`;
     // Pine cone
-    //document.body.style.backgroundColor = `rgb(221, 210, 186)`;
-    //document.body.style.backgroundColor = `rgb(177, 156, 149)`;
+    // document.body.style.backgroundColor = `rgb(221, 210, 186)`;
+    // document.body.style.backgroundColor = `rgb(177, 156, 149)`;
     document.body.style.backgroundColor = `rgb(149, 149, 149)`;
-    //document.body.style.backgroundColor = `rgb(221, 210, 186)`;
+    // document.body.style.backgroundColor = `rgb(221, 210, 186)`;
   };
 
   const dot = document.createElement("div");
