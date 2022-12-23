@@ -5,12 +5,28 @@ import Camera from "parsegraph-camera";
 import { showInCamera } from "parsegraph-showincamera";
 
 import { WorldLabels } from "parsegraph-scene";
+import { Direction } from "parsegraph-direction";
 
-import SliderNode from "./SliderNode";
+import SliderNode, {VerticalSliderNode} from "./SliderNode";
+import { BlockNode } from "parsegraph-block";
 
-const buildGraph = () => {
-  const root = new SliderNode();
-  return root;
+const buildGraph = ():[BlockNode, SliderNode[]] => {
+  let bud = new BlockNode("u");
+  const root = bud;
+  const sliders = [];
+  for(let i = 0; i < 8; ++i) {
+    const root = new BlockNode("b");
+    root.value().setLabel("Slider");
+    const slider = i % 2 === 0 ? new SliderNode() : new VerticalSliderNode();
+    root.connectNode(Direction.FORWARD, slider);
+    sliders.push(slider);
+    slider.connectNode(Direction.FORWARD, new BlockNode("s"))
+    bud.connectNode(Direction.FORWARD, root);
+    let child = new BlockNode("u");
+    bud.connectNode(Direction.DOWNWARD, child);
+    bud = child;
+  }
+  return [root, sliders];
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -38,8 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const pizza = new Pizza(proj);
 
   const cam = new Camera();
-  const n = buildGraph();
-  pizza.populate(n);
+  let [graph, sliders] = buildGraph();
+  pizza.populate(graph);
 
   const redraw = () => {
     labels.clear();
@@ -60,15 +76,21 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.fillStyle = "black";
     ctx.textBaseline = "top";
     ctx.textAlign = "left";
-    ctx.fillText(`scale=${cam.scale()}`, 0, 0);
+    ctx.fillText(
+      `x=${Math.round(cam.x())} y=${Math.round(cam.y())} scale=${Math.round(
+        100 * cam.scale()
+      )}%`,
+      0,
+      0
+    );
   };
 
   const refresh = () => {
     proj.overlay().resetTransform();
     proj.overlay().clearRect(0, 0, proj.width(), proj.height());
-    const n = buildGraph();
-    pizza.populate(n);
-    showInCamera(n, cam, false);
+    [graph, sliders] = buildGraph();
+    pizza.populate(graph);
+    showInCamera(graph, cam, false);
     redraw();
     // const rand = () => Math.floor(Math.random() * 255);
     // document.body.style.backgroundColor = `rgb(${rand()}, ${rand()}, ${rand()})`;
@@ -92,8 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
   root.appendChild(dot);
 
   document.body.style.transition = "background-color 2s";
-  let timer: any = null;
-  let dotTimer: any = null;
+  const timer: any = null;
+  const dotTimer: any = null;
   let dotIndex = 0;
   const dotState = ["#f00", "#c00"];
   const refreshDot = () => {
@@ -105,47 +127,143 @@ document.addEventListener("DOMContentLoaded", () => {
   root.tabIndex = 0;
   root.focus();
 
+  const touchLength = (e: TouchEvent) => {
+    let [minX, minY, maxX, maxY] = [NaN, NaN, NaN, NaN];
+    for (let i = 0; i < e.touches.length; ++i) {
+      const [x, y] = [e.touches[i].clientX, e.touches[i].clientY];
+      if (isNaN(minX)) {
+        minX = x;
+        minY = y;
+        maxX = x;
+        maxY = y;
+      }
+      minX = Math.min(minX, x);
+      maxX = Math.max(maxX, x);
+      minY = Math.min(minY, y);
+      maxY = Math.max(maxY, y);
+    }
+    return Math.sqrt(Math.pow(maxY - minY, 2) + Math.pow(maxX - maxY, 2));
+  };
+
   let clicked = false;
-  root.addEventListener("touchstart", (e) => {
-    clicked = true;
-  });
-  let lastTouch = [0, 0];
+  let lastTouch = [NaN, NaN];
+  let lastTouchLength = NaN;
   root.addEventListener("touchmove", (e) => {
-    const [movementX, movementY] = [
-      e.touches[0].clientX - lastTouch[0],
-      e.touches[0].clientY - lastTouch[1],
-    ];
-    lastTouch = [e.touches[0].clientX, e.touches[0].clientY];
-    cam.adjustOrigin(movementX / cam.scale(), movementY / cam.scale());
+    const oldTouch = lastTouch;
+    lastTouch = getTouchCenter(e);
+    const [worldX, worldY] = cam.transform(lastTouch[0], lastTouch[1]);
+    if (focusedGraph) {
+      focusedGraph.value().mousemove(worldX, worldY);
+      redraw();
+      return;
+    }
+    if (!clicked) {
+      return;
+    }
+    if (e.touches.length > 1) {
+      const delta = touchLength(e) - lastTouchLength;
+      cam.zoomToPoint(1 + delta * 0.01, lastTouch[0], lastTouch[1]);
+      lastTouchLength = touchLength(e);
+    } else {
+      const dx = lastTouch[0] - oldTouch[0];
+      const dy = lastTouch[1] - oldTouch[1];
+      cam.adjustOrigin(dx / cam.scale(), dy / cam.scale());
+    }
+    redraw();
   });
+
   root.addEventListener("touchend", (e) => {
-    clicked = false;
+    lastTouch = getTouchCenter(e);
+    lastTouchLength = touchLength(e);
+    if (e.touches.length === 0) {
+      clicked = false;
+      focusedGraph = null;
+    }
+  });
+
+  const average = (vals: number[]) => {
+    const sum = vals.reduce((curr, val) => curr + val, 0);
+    return sum / vals.length;
+  };
+
+  const getTouchCenter = (e: TouchEvent) => {
+    const x = [];
+    const y = [];
+    for (let i = 0; i < e.touches.length; ++i) {
+      x.push(e.touches[i].clientX);
+      y.push(e.touches[i].clientY);
+    }
+    return [average(x), average(y)];
+  };
+
+  let focusedGraph: SliderNode = null;
+  root.addEventListener("touchstart", (e) => {
+    const [worldX, worldY] = cam.transform(
+      e.touches[0].clientX,
+      e.touches[0].clientY
+    );
+    lastTouch = getTouchCenter(e);
+    lastTouchLength = touchLength(e);
+    focusedGraph = null;
+    sliders.forEach(slider=>{
+      if (!slider.value().getLayout().inNodeBody(worldX, worldY, 1, null)) {
+        return;
+      }
+      if (!slider.value().mousedown(worldX, worldY)) {
+        return;
+      }
+      focusedGraph = slider;
+      redraw();
+    });
+    if (!focusedGraph) {
+      clicked = true;
+    }
   });
   root.addEventListener("mousedown", (e) => {
-    if (e.button === 0) {
+    const [worldX, worldY] = cam.transform(e.clientX, e.clientY);
+    focusedGraph = null;
+    sliders.forEach(slider=>{
+      if (!slider.value().getLayout().inNodeBody(worldX, worldY, 1, null)) {
+        return;
+      }
+      if (!slider.value().mousedown(worldX, worldY)) {
+        return;
+      }
+      focusedGraph = slider;
+      redraw();
+    });
+    if (!focusedGraph) {
       clicked = true;
     }
   });
   root.addEventListener("mousemove", (e) => {
+    const [worldX, worldY] = cam.transform(e.clientX, e.clientY);
+    if (focusedGraph) {
+      focusedGraph.value().mousemove(worldX, worldY);
+      redraw();
+      return;
+    }
     if (!clicked) {
       return;
     }
-    console.log(e.movementX);
     cam.adjustOrigin(e.movementX / cam.scale(), e.movementY / cam.scale());
     redraw();
   });
   root.addEventListener("mouseup", (e) => {
+    if (focusedGraph) {
+      focusedGraph = null;
+      return;
+    }
     if (e.button === 0) {
       clicked = false;
     }
   });
   root.addEventListener("wheel", (e) => {
     const zoomIn = (e as WheelEvent).deltaY < 0;
-    console.log(e);
     cam.zoomToPoint(zoomIn ? 1.1 : 0.9, e.clientX, e.clientY);
     redraw();
   });
-  root.addEventListener("click", () => {
+  /* root.addEventListener("click", () => {
     if (timer) {
       clearInterval(timer);
       timer = null;
@@ -160,5 +278,8 @@ document.addEventListener("DOMContentLoaded", () => {
       timer = setInterval(refresh, interval);
       dotTimer = setInterval(refreshDot, dotInterval);
     }
-  });
+  });*/
+  setTimeout(() => refresh(), 0);
+
+  document.addEventListener("touchmove", (e) => e.preventDefault());
 });

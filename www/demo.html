@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="width: 100%; height: 100%">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>slider</title>
   <style>
       body {
           margin: 0;
           padding: 0;
+          overflow: hidden;
+          touch-action: pan-x pan-y;
       }
       .parsegraph_Window {
           width: 100%;
@@ -21,8 +23,8 @@
         parsegraph_checkglerror.setIgnoreGLErrors(false);
     </script>
 </head>
-<body>
-    <div style="width: 100vw; height: 100vh">
+<body style="width: 100%; height: 100%">
+    <div style="width: 100%; height: 100%">
         <div style="width: 100%; height: 100%" id="demo"></div>
     </div>
     <script src="src/demo.js"></script>

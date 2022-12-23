@@ -18,8 +18,6 @@ import log, { logEnterc, logLeave } from "parsegraph-log";
 import { Projector } from "parsegraph-projector";
 import SliderScene from "./SliderScene";
 
-const LABEL_WEIGHT_MULTIPLIER = 12;
-
 export default class DefaultSliderScene extends SliderScene {
   _backgroundColor: Color;
   _blockPainter: BlockPainter;
@@ -35,7 +33,7 @@ export default class DefaultSliderScene extends SliderScene {
     return this._consecutiveRenders;
   }
 
-  constructor(projector: Projector, blockType: BlockType = BlockType.ROUNDED) {
+  constructor(projector: Projector, blockType: BlockType = BlockType.SQUARE) {
     super(projector);
 
     this._backgroundColor = new Color(0, 0, 0, 0);
@@ -102,8 +100,11 @@ export default class DefaultSliderScene extends SliderScene {
       }
     });
 
-    // One for the block.
-    ++counts.numBlocks;
+    // Count the slider BG, track, the thumb, and the steps
+    counts.numBlocks += 3;
+    if (node.value().steps() > 0) {
+      counts.numBlocks += node.value().steps() + 1;
+    }
   }
 
   paint(): boolean {
@@ -147,22 +148,13 @@ export default class DefaultSliderScene extends SliderScene {
     const directionData = node.neighborAt(direction);
 
     const block = node.value();
-    const selectedColor = block
-      .style()
-      .selectedLineColor.premultiply(this.backgroundColor());
     const color = block.style().lineColor.premultiply(this.backgroundColor());
 
     const layout = block.getLayout();
 
     const painter = this._blockPainter;
-    if (block.isSelected() && node.nodeAt(direction).value().isSelected()) {
-      painter.setBorderColor(selectedColor);
-      painter.setBackgroundColor(selectedColor);
-    } else {
-      // Not selected.
-      painter.setBorderColor(color);
-      painter.setBackgroundColor(color);
-    }
+    painter.setBorderColor(color);
+    painter.setBackgroundColor(color);
 
     const parentScale = layout.groupScale();
     const scale = directionData.getNode().value().getLayout().groupScale();
@@ -223,68 +215,128 @@ export default class DefaultSliderScene extends SliderScene {
       throw new Error("Block has no style");
     }
 
-    /* // Set colors if selected.
-        if(node.isSelected()) {
-            painter.setBorderColor(
-                style.selectedBorderColor.premultiply(
-                    node.backdropColor()
-                )
-            );
-            painter.setBackgroundColor(
-                style.selectedBackgroundColor.premultiply(
-                    node.backdropColor()
-                )
-            );
-        } else */ {
-      painter.setBorderColor(
-        style.borderColor // .premultiply(node.backdropColor())
-      );
-      console.log(style.backgroundColor);
-      painter.setBackgroundColor(
-        style.backgroundColor // .premultiply(node.backdropColor())
-      );
-    }
+    painter.setBorderColor(
+      style.borderColor // .premultiply(node.backdropColor())
+    );
+    painter.setBackgroundColor(
+      style.backgroundColor // .premultiply(node.backdropColor())
+    );
 
-    // Draw the block.
     const size = layout.groupSize(this.bodySize);
+    const color = block.style().lineColor;
+    painter.setBorderColor(color);
+    painter.setBackgroundColor(color);
+
+    const thumbSize = block.style().thickness;
+
+    // Draw the BG
+    painter.setBorderColor(color);
+    painter.setBackgroundColor(
+      new Color(
+        style.backgroundColor.r(),
+        style.backgroundColor.g(),
+        style.backgroundColor.b(),
+        style.backgroundColor.a()
+      )
+    );
     painter.drawBlock(
       layout.groupX(),
       layout.groupY(),
       size.width(),
       size.height(),
       layout.groupScale() * style.borderRoundness,
-      layout.groupScale() * style.borderThickness
+      layout.groupScale() * 0
     );
 
-    // Draw the label.
-    const label = block.realLabel();
-    if (!label) {
-      return;
-    }
-    const fontScale =
-      (style.fontSize * layout.groupScale()) / label.font().fontSize();
-    let labelX;
-    let labelY;
-    if (node.hasNode(Direction.INWARD)) {
-      const nodeSize = block.sizeWithoutPadding(this.bodySize);
-      if (
-        node.nodeAlignmentMode(Direction.INWARD) == Alignment.INWARD_VERTICAL
-      ) {
-        // Align vertical.
-        labelX = layout.groupX() - (fontScale * label.width()) / 2;
-        labelY =
-          layout.groupY() - (layout.groupScale() * nodeSize.height()) / 2;
-      } else {
-        // Align horizontal.
-        labelX = layout.groupX() - (layout.groupScale() * nodeSize.width()) / 2;
-        labelY = layout.groupY();
+    if (block.isVertical()) {
+      // Draw the slider track
+      painter.setBorderColor(color);
+      painter.setBackgroundColor(color);
+      painter.drawBlock(
+        layout.groupX(),
+        layout.groupY(),
+        block.style().trackThickness,
+        size.height() - thumbSize - style.markThickness / 2,
+        layout.groupScale() * 0,
+        layout.groupScale() * style.borderThickness
+      );
+      if (block.steps() > 0) {
+        const markLength = thumbSize / 2;
+        for (let i = 0; i <= block.steps(); ++i) {
+          painter.drawBlock(
+            layout.groupX(),
+            layout.groupY() -
+              size.height() / 2 +
+              thumbSize / 2 +
+              (size.height() - thumbSize) * (i / block.steps()),
+            i === 0 || i === block.steps() || i === block.steps() / 2
+              ? markLength
+              : markLength / 2,
+            block.style().markThickness,
+            layout.groupScale() * style.borderRoundness,
+            layout.groupScale() * style.borderThickness
+          );
+        }
       }
+      // Draw the slider thumb
+      painter.setBorderColor(style.thumbColor);
+      painter.setBackgroundColor(style.thumbBackgroundColor);
+      painter.drawBlock(
+        layout.groupX(),
+        layout.groupY() -
+          size.height() / 2 +
+          thumbSize / 2 +
+          (size.height() - thumbSize) * block.pct(),
+        thumbSize,
+        thumbSize,
+        layout.groupScale() * style.borderRoundness,
+        layout.groupScale() * LINE_THICKNESS
+      );
     } else {
-      labelX = layout.groupX() - (fontScale * label.width()) / 2;
-      labelY = layout.groupY();
+      // Draw the slider track
+      painter.setBorderColor(color);
+      painter.setBackgroundColor(color);
+      painter.drawBlock(
+        layout.groupX(),
+        layout.groupY(),
+        size.width() - thumbSize - style.markThickness / 2,
+        style.trackThickness,
+        layout.groupScale() * 0,
+        layout.groupScale() * style.borderThickness
+      );
+      if (block.steps() > 0) {
+        const markLength = size.height() / 2;
+        for (let i = 0; i <= block.steps(); ++i) {
+          painter.drawBlock(
+            layout.groupX() -
+              size.width() / 2 +
+              thumbSize / 2 +
+              (size.width() - thumbSize) * (i / block.steps()),
+            layout.groupY(),
+            style.markThickness,
+            i === 0 || i === block.steps() || i === block.steps() / 2
+              ? markLength
+              : markLength / 2,
+            layout.groupScale() * style.borderRoundness,
+            layout.groupScale() * style.borderThickness
+          );
+        }
+      }
+      // Draw the slider thumb
+      painter.setBorderColor(style.thumbColor);
+      painter.setBackgroundColor(style.thumbBackgroundColor);
+      painter.drawBlock(
+        layout.groupX() -
+          size.width() / 2 +
+          thumbSize / 2 +
+          (size.width() - thumbSize) * block.pct(),
+        layout.groupY(),
+        thumbSize,
+        thumbSize,
+        layout.groupScale() * style.borderRoundness,
+        layout.groupScale() * LINE_THICKNESS
+      );
     }
-    const l = block.realLabel();
-    l.setPos(labelX, labelY, fontScale);
   }
 
   forceSimple() {
@@ -307,34 +359,6 @@ export default class DefaultSliderScene extends SliderScene {
         this.worldTransform().scale()
       );
     }
-
-    if (this.forceSimple() || !this.isTextRenderingEnabled()) {
-      return false;
-    }
-
-    // Draw each block.
-    this.sliders().forEach((node) => {
-      const block = node.value();
-      const label = block.realLabel();
-      const weight = block.labelWeight();
-      const style = block.style();
-      if (label) {
-        const fontColor = block.isSelected()
-          ? style.selectedFontColor
-          : style.fontColor;
-        label.paint(this.projector(), fontColor);
-        this.worldTransform()
-          .labels()
-          ?.draw(
-            block.label(),
-            block.getLayout().absoluteX(),
-            block.getLayout().absoluteY(),
-            weight * LABEL_WEIGHT_MULTIPLIER,
-            block.getLayout().absoluteScale() * 0.5,
-            block.style().backgroundColor
-          );
-      }
-    });
 
     return false;
   }
@@ -361,17 +385,5 @@ export default class DefaultSliderScene extends SliderScene {
 
   isLineRenderingEnabled(): boolean {
     return this._renderLines;
-  }
-
-  enableTextRendering(): void {
-    this._renderText = true;
-  }
-
-  disableTextRendering(): void {
-    this._renderText = false;
-  }
-
-  isTextRenderingEnabled(): boolean {
-    return this._renderText;
   }
 }

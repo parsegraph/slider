@@ -2,7 +2,8 @@ import Font from "parsegraph-font";
 import Size from "parsegraph-size";
 import { Projector } from "parsegraph-projector";
 import Color from "parsegraph-color";
-import { FONT_SIZE } from "./BlockStyle";
+
+const FONT_SIZE = 18;
 
 let measureCanvas: HTMLCanvasElement = null;
 let measureCtx: CanvasRenderingContext2D = null;
