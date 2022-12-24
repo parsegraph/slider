@@ -24,7 +24,7 @@ export default class Slider extends BasicPainted<Slider> {
     this._style = style;
 
     this._min = 0;
-    this._max = 100;
+    this._max = 1;
     this._value = this.mid();
     this._steps = 10;
 
