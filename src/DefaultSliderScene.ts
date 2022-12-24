@@ -1,5 +1,4 @@
 import Direction, {
-  Alignment,
   forEachCardinalDirection,
   isVerticalDirection,
   directionSign,
@@ -10,13 +9,15 @@ import BlockPainter, {
   BlockType,
 } from "parsegraph-blockpainter";
 import SliderNode from "./SliderNode";
-import { LINE_THICKNESS } from "./SliderStyle";
 import Size from "parsegraph-size";
 import Rect from "parsegraph-rect";
 import Color from "parsegraph-color";
 import log, { logEnterc, logLeave } from "parsegraph-log";
 import { Projector } from "parsegraph-projector";
 import SliderScene from "./SliderScene";
+import {LINE_THICKNESS} from './SliderStyle';
+
+import {LINE_THICKNESS as NEIGHBOR_LINE_THICKNESS} from 'parsegraph-block';
 
 export default class DefaultSliderScene extends SliderScene {
   _backgroundColor: Color;
@@ -165,7 +166,7 @@ export default class DefaultSliderScene extends SliderScene {
     }
 
     const thickness =
-      LINE_THICKNESS * scale * directionData.getNode().state().scale();
+      NEIGHBOR_LINE_THICKNESS * scale * directionData.getNode().state().scale();
     if (isVerticalDirection(direction)) {
       const length =
         directionSign(direction) *
@@ -223,7 +224,7 @@ export default class DefaultSliderScene extends SliderScene {
     );
 
     const size = layout.groupSize(this.bodySize);
-    const color = block.style().lineColor;
+    const color = block.style().trackColor;;
     painter.setBorderColor(color);
     painter.setBackgroundColor(color);
 

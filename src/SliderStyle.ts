@@ -25,6 +25,7 @@ type SliderStyle = {
   borderThickness: number;
   verticalSeparation: number;
   horizontalSeparation: number;
+  trackColor: Color;
   lineColor: Color;
   thumbColor: Color;
   thumbBackgroundColor: Color;
@@ -32,13 +33,13 @@ type SliderStyle = {
   markThickness: number;
 };
 
-export const LINE_COLOR = style('b').lineColor;//new Color(0.4, 0.4, 0.4, 0.5);
+export const LINE_COLOR = style('b').lineColor;
 export const THUMB_COLOR = style('b').lineColor;
-export const THUMB_BACKGROUND_COLOR = style('b').backgroundColor;
+export const THUMB_BACKGROUND_COLOR = new Color(.115, .035, .171, .9);//style('b').backgroundColor;
 export const SELECTED_LINE_COLOR = new Color(0.8, 0.8, 0.8, 1);
-export const LINE_THICKNESS = BUD_RADIUS / 8;
+export const LINE_THICKNESS = BUD_RADIUS / 32;
 
-const BACKGROUND_COLOR = new Color(100/ 255, 100/ 255, 100/ 255, 0.2);
+const BACKGROUND_COLOR = new Color(.454, .328, .076, 0);
 
 const lineColor = LINE_COLOR;
 const borderColor = lineColor;
@@ -47,14 +48,15 @@ const BORDER_THICKNESS = 0.05;
 
 const DEFAULT_STYLE: SliderStyle = {
   length: 3 * MIN_BLOCK_WIDTH,
-  thickness: 2 * BUD_RADIUS,
+  thickness: BUD_RADIUS,
   isVertical: false,
   borderColor: borderColor,
   backgroundColor: BACKGROUND_COLOR,
   borderRoundness: BUD_RADIUS * 4,
   borderThickness: BORDER_THICKNESS,
-  trackThickness: LINE_THICKNESS,
-  markThickness: LINE_THICKNESS/2,
+  trackThickness: 2*LINE_THICKNESS,
+  markThickness: LINE_THICKNESS,
+  trackColor: new Color(0.5, 0.5, 0.5, 1),
   lineColor: lineColor,
   thumbColor: THUMB_COLOR,
   thumbBackgroundColor: THUMB_BACKGROUND_COLOR,
@@ -72,6 +74,7 @@ const VERTICAL_STYLE: SliderStyle = {
   borderThickness: BORDER_THICKNESS,
   trackThickness: DEFAULT_STYLE.trackThickness,
   markThickness: DEFAULT_STYLE.markThickness,
+  trackColor: DEFAULT_STYLE.trackColor,
   lineColor: lineColor,
   thumbColor: THUMB_COLOR,
   thumbBackgroundColor: DEFAULT_STYLE.thumbBackgroundColor,

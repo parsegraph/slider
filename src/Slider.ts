@@ -27,7 +27,7 @@ export default class Slider extends BasicPainted<Slider> {
     this._min = 0;
     this._max = 100;
     this._value = this.mid();
-    this._steps = 20;
+    this._steps = 10;
   }
 
   setVal(val: number) {
