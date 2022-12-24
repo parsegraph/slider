@@ -4,15 +4,16 @@ import Size from "parsegraph-size";
 import { Axis, DirectionNode } from "parsegraph-direction";
 
 import SliderStyle from "./SliderStyle";
+import Method from 'parsegraph-method';
 
 export default class Slider extends BasicPainted<Slider> {
-  _focused: boolean;
   _style: SliderStyle;
 
   _min: number;
   _max: number;
   _value: number;
   _steps: number;
+  _onChange: Method;
 
   constructor(
     node: DirectionNode<Slider>,
@@ -20,18 +21,27 @@ export default class Slider extends BasicPainted<Slider> {
     artist: Artist<Slider>
   ) {
     super(node, artist);
-    this._focused = false;
-    this.interact().setFocusListener(this.onFocus, this);
     this._style = style;
 
     this._min = 0;
     this._max = 100;
     this._value = this.mid();
     this._steps = 10;
+
+    this._onChange = new Method();
+  }
+
+  setOnChange(onChange: (val:number)=>void) {
+    this._onChange.set(onChange);
   }
 
   setVal(val: number) {
-    this._value = Math.min(this.max(), Math.max(this.min(), val));
+    val = Math.min(this.max(), Math.max(this.min(), val));
+    if (this._value === val) {
+      return;
+    }
+    this._value = val;
+    this._onChange.call(this._value);
   }
 
   pct(): number {
@@ -44,6 +54,16 @@ export default class Slider extends BasicPainted<Slider> {
 
   max(): number {
     return this._max;
+  }
+
+  setMin(min: number) {
+    this._min = min;
+    this.setVal(this.val());
+  }
+
+  setMax(max: number) {
+    this._max = max;
+    this.setVal(this.val());
   }
 
   setSteps(steps: number) {
@@ -66,18 +86,8 @@ export default class Slider extends BasicPainted<Slider> {
     return this.style().lineColor;
   }
 
-  focused() {
-    return this._focused;
-  }
-
   isVertical() {
     return this.style().isVertical;
-  }
-
-  onFocus(focus: boolean): boolean {
-    this._focused = focus;
-    this.scheduleRepaint();
-    return true;
   }
 
   getSeparation(axis: Axis) {
