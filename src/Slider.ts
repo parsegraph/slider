@@ -4,7 +4,7 @@ import Size from "parsegraph-size";
 import { Axis, DirectionNode } from "parsegraph-direction";
 
 import SliderStyle from "./SliderStyle";
-import Method from 'parsegraph-method';
+import Method from "parsegraph-method";
 
 export default class Slider extends BasicPainted<Slider> {
   _style: SliderStyle;
@@ -31,7 +31,7 @@ export default class Slider extends BasicPainted<Slider> {
     this._onChange = new Method();
   }
 
-  setOnChange(onChange: (val:number)=>void) {
+  setOnChange(onChange: (val: number) => void) {
     this._onChange.set(onChange);
   }
 
@@ -145,8 +145,7 @@ export default class Slider extends BasicPainted<Slider> {
       } else if (localY < -hh) {
         this.setVal(this.min());
       } else {
-        let rawVal =
-          this.min() + (this.range() * (localY + hh)) / (2 * hh);
+        let rawVal = this.min() + (this.range() * (localY + hh)) / (2 * hh);
         if (this.steps() > 0) {
           const stepRange = this.range() / this.steps();
           rawVal =
@@ -163,8 +162,7 @@ export default class Slider extends BasicPainted<Slider> {
       } else if (localX < -hw) {
         this.setVal(this.min());
       } else {
-        let rawVal =
-          this.min() + (this.range() * (localX + hw)) / (2 * hw);
+        let rawVal = this.min() + (this.range() * (localX + hw)) / (2 * hw);
         if (this.steps() > 0) {
           const stepRange = this.range() / this.steps();
           rawVal =

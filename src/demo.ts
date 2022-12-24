@@ -7,22 +7,22 @@ import { showInCamera } from "parsegraph-showincamera";
 import { WorldLabels } from "parsegraph-scene";
 import { Direction } from "parsegraph-direction";
 
-import SliderNode, {VerticalSliderNode} from "./SliderNode";
+import SliderNode, { VerticalSliderNode } from "./SliderNode";
 import { BlockNode } from "parsegraph-block";
 
-const buildGraph = ():[BlockNode, SliderNode[]] => {
+const buildGraph = (): [BlockNode, SliderNode[]] => {
   let bud = new BlockNode("u");
   const root = bud;
   const sliders = [];
-  for(let i = 0; i < 8; ++i) {
+  for (let i = 0; i < 8; ++i) {
     const root = new BlockNode("b");
     root.value().setLabel("Slider");
     const slider = i % 2 === 0 ? new SliderNode() : new VerticalSliderNode();
     root.connectNode(Direction.FORWARD, slider);
     sliders.push(slider);
-    slider.connectNode(Direction.FORWARD, new BlockNode("s"))
+    slider.connectNode(Direction.FORWARD, new BlockNode("s"));
     bud.connectNode(Direction.FORWARD, root);
-    let child = new BlockNode("u");
+    const child = new BlockNode("u");
     bud.connectNode(Direction.DOWNWARD, child);
     bud = child;
   }
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lastTouch = getTouchCenter(e);
     lastTouchLength = touchLength(e);
     focusedGraph = null;
-    sliders.forEach(slider=>{
+    sliders.forEach((slider) => {
       if (!slider.value().getLayout().inNodeBody(worldX, worldY, 1, null)) {
         return;
       }
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
   root.addEventListener("mousedown", (e) => {
     const [worldX, worldY] = cam.transform(e.clientX, e.clientY);
     focusedGraph = null;
-    sliders.forEach(slider=>{
+    sliders.forEach((slider) => {
       if (!slider.value().getLayout().inNodeBody(worldX, worldY, 1, null)) {
         return;
       }

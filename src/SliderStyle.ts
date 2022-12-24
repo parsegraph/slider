@@ -1,10 +1,10 @@
 import Color from "parsegraph-color";
-import {style} from 'parsegraph-block';
+import { style } from "parsegraph-block";
 
-const BUD_RADIUS = style('u').minWidth;
-const MIN_BLOCK_WIDTH = style('b').minWidth;
-const HORIZONTAL_SEPARATION_PADDING = style('b').horizontalSeparation;
-const VERTICAL_SEPARATION_PADDING = style('b').verticalSeparation;
+const BUD_RADIUS = style("u").minWidth;
+const MIN_BLOCK_WIDTH = style("b").minWidth;
+const HORIZONTAL_SEPARATION_PADDING = style("b").horizontalSeparation;
+const VERTICAL_SEPARATION_PADDING = style("b").verticalSeparation;
 
 export const FONT_SIZE = 18;
 
@@ -33,13 +33,13 @@ type SliderStyle = {
   markThickness: number;
 };
 
-export const LINE_COLOR = style('b').lineColor;
-export const THUMB_COLOR = style('b').lineColor;
-export const THUMB_BACKGROUND_COLOR = new Color(.115, .035, .171, .9);//style('b').backgroundColor;
+export const LINE_COLOR = style("b").lineColor;
+export const THUMB_COLOR = style("b").lineColor;
+export const THUMB_BACKGROUND_COLOR = new Color(0.115, 0.035, 0.171, 0.9); // style('b').backgroundColor;
 export const SELECTED_LINE_COLOR = new Color(0.8, 0.8, 0.8, 1);
 export const LINE_THICKNESS = BUD_RADIUS / 32;
 
-const BACKGROUND_COLOR = new Color(.454, .328, .076, 0);
+const BACKGROUND_COLOR = new Color(0.454, 0.328, 0.076, 0);
 
 const lineColor = LINE_COLOR;
 const borderColor = lineColor;
@@ -54,7 +54,7 @@ const DEFAULT_STYLE: SliderStyle = {
   backgroundColor: BACKGROUND_COLOR,
   borderRoundness: BUD_RADIUS * 4,
   borderThickness: BORDER_THICKNESS,
-  trackThickness: 2*LINE_THICKNESS,
+  trackThickness: 2 * LINE_THICKNESS,
   markThickness: LINE_THICKNESS,
   trackColor: new Color(0.5, 0.5, 0.5, 1),
   lineColor: lineColor,

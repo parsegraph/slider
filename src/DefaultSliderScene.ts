@@ -15,9 +15,9 @@ import Color from "parsegraph-color";
 import log, { logEnterc, logLeave } from "parsegraph-log";
 import { Projector } from "parsegraph-projector";
 import SliderScene from "./SliderScene";
-import {LINE_THICKNESS} from './SliderStyle';
+import { LINE_THICKNESS } from "./SliderStyle";
 
-import {LINE_THICKNESS as NEIGHBOR_LINE_THICKNESS} from 'parsegraph-block';
+import { LINE_THICKNESS as NEIGHBOR_LINE_THICKNESS } from "parsegraph-block";
 
 export default class DefaultSliderScene extends SliderScene {
   _backgroundColor: Color;
@@ -224,7 +224,7 @@ export default class DefaultSliderScene extends SliderScene {
     );
 
     const size = layout.groupSize(this.bodySize);
-    const color = block.style().trackColor;;
+    const color = block.style().trackColor;
     painter.setBorderColor(color);
     painter.setBackgroundColor(color);
 
