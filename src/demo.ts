@@ -1,4 +1,4 @@
-import { Pizza } from "parsegraph-artist";
+import { PaintedNode, Pizza } from "parsegraph-artist";
 import { WorldTransform } from "parsegraph-scene";
 import { BasicProjector } from "parsegraph-projector";
 import Camera from "parsegraph-camera";
@@ -10,23 +10,21 @@ import { Direction } from "parsegraph-direction";
 import SliderNode, { VerticalSliderNode } from "./SliderNode";
 import { BlockNode } from "parsegraph-block";
 
-const buildGraph = (): [BlockNode, SliderNode[]] => {
+const buildGraph = (): PaintedNode => {
   let bud = new BlockNode("u");
   const root = bud;
-  const sliders = [];
   for (let i = 0; i < 8; ++i) {
     const root = new BlockNode("b");
     root.value().setLabel("Slider");
     const slider = i % 2 === 0 ? new SliderNode() : new VerticalSliderNode();
     root.connectNode(Direction.FORWARD, slider);
-    sliders.push(slider);
     slider.connectNode(Direction.FORWARD, new BlockNode("s"));
     bud.connectNode(Direction.FORWARD, root);
     const child = new BlockNode("u");
     bud.connectNode(Direction.DOWNWARD, child);
     bud = child;
   }
-  return [root, sliders];
+  return root;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -54,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pizza = new Pizza(proj);
 
   const cam = new Camera();
-  let [graph, sliders] = buildGraph();
+  let graph = buildGraph();
   pizza.populate(graph);
 
   const redraw = () => {
@@ -88,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const refresh = () => {
     proj.overlay().resetTransform();
     proj.overlay().clearRect(0, 0, proj.width(), proj.height());
-    [graph, sliders] = buildGraph();
+    graph = buildGraph();
     pizza.populate(graph);
     showInCamera(graph, cam, false);
     redraw();
@@ -196,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return [average(x), average(y)];
   };
 
-  let focusedGraph: SliderNode = null;
+  let focusedGraph: PaintedNode = null;
   root.addEventListener("touchstart", (e) => {
     const [worldX, worldY] = cam.transform(
       e.touches[0].clientX,
@@ -205,48 +203,46 @@ document.addEventListener("DOMContentLoaded", () => {
     lastTouch = getTouchCenter(e);
     lastTouchLength = touchLength(e);
     focusedGraph = null;
-    sliders.forEach((slider) => {
-      if (!slider.value().getLayout().inNodeBody(worldX, worldY, 1, null)) {
-        return;
-      }
-      if (!slider.value().mousedown(worldX, worldY)) {
-        return;
-      }
-      focusedGraph = slider;
+
+    const n = graph.value().getLayout().nodeUnderCoords(worldX, worldY) as PaintedNode;
+    if (n && n.value().interact().hasDragListener()) {
+      n.value().interact().drag(worldX, worldY);
+      focusedGraph = n;
       redraw();
-    });
+    } else {
+      focusedGraph = null;
+    }
     if (!focusedGraph) {
       clicked = true;
     }
   });
   root.addEventListener("mousedown", (e) => {
     const [worldX, worldY] = cam.transform(e.clientX, e.clientY);
-    focusedGraph = null;
-    sliders.forEach((slider) => {
-      if (!slider.value().getLayout().inNodeBody(worldX, worldY, 1, null)) {
-        return;
-      }
-      if (!slider.value().mousedown(worldX, worldY)) {
-        return;
-      }
-      focusedGraph = slider;
+    const n = graph.value().getLayout().nodeUnderCoords(worldX, worldY) as PaintedNode;
+    if (n && n.value().interact().hasDragListener()) {
+      n.value().interact().drag(worldX, worldY);
+      focusedGraph = n;
       redraw();
-    });
+    } else {
+      focusedGraph = null;
+    }
     if (!focusedGraph) {
       clicked = true;
     }
   });
   root.addEventListener("mousemove", (e) => {
     const [worldX, worldY] = cam.transform(e.clientX, e.clientY);
+    const dx = e.movementX / cam.scale();
+    const dy = e.movementY / cam.scale();
     if (focusedGraph) {
-      focusedGraph.value().mousemove(worldX, worldY);
+      focusedGraph.value().interact().drag(worldX, worldY, dx, dy);
       redraw();
       return;
     }
     if (!clicked) {
       return;
     }
-    cam.adjustOrigin(e.movementX / cam.scale(), e.movementY / cam.scale());
+    cam.adjustOrigin(dx, dy);
     redraw();
   });
   root.addEventListener("mouseup", (e) => {

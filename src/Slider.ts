@@ -29,6 +29,11 @@ export default class Slider extends BasicPainted<Slider> {
     this._steps = 10;
 
     this._onChange = new Method();
+
+    this.interact().setDragListener((x, y)=>{
+      this.updateFromWorld(x, y);
+      return true;
+    });
   }
 
   setOnChange(onChange: (val: number) => void) {
@@ -172,15 +177,6 @@ export default class Slider extends BasicPainted<Slider> {
         this.setVal(rawVal);
       }
     }
-  }
-
-  mousedown(x: number, y: number) {
-    this.updateFromWorld(x, y);
-    return true;
-  }
-
-  mousemove(worldX: number, worldY: number) {
-    this.updateFromWorld(worldX, worldY);
   }
 
   setStyle(style: SliderStyle): void {
