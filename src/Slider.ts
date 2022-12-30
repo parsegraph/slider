@@ -139,7 +139,6 @@ export default class Slider extends BasicPainted<Slider> {
   }
 
   updateFromWorld(worldX: number, worldY: number) {
-    console.log(worldX, worldY);
     const cx = this.getLayout().absoluteX();
     const cy = this.getLayout().absoluteY();
     const localX = worldX - cx;
