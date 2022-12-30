@@ -13,7 +13,7 @@ import { BlockNode } from "parsegraph-block";
 const buildGraph = (): PaintedNode => {
   let bud = new BlockNode("u");
   const root = bud;
-  for (let i = 0; i < 8; ++i) {
+  for (let i = 0; i < 20; ++i) {
     const root = new BlockNode("b");
     root.value().setLabel("Slider");
     const slider = i % 2 === 0 ? new SliderNode() : new VerticalSliderNode();
@@ -22,6 +22,7 @@ const buildGraph = (): PaintedNode => {
     bud.connectNode(Direction.FORWARD, root);
     const child = new BlockNode("u");
     bud.connectNode(Direction.DOWNWARD, child);
+    bud.state().setScale(0.85);
     bud = child;
   }
   return root;

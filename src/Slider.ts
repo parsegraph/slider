@@ -139,12 +139,13 @@ export default class Slider extends BasicPainted<Slider> {
   }
 
   updateFromWorld(worldX: number, worldY: number) {
+    console.log(worldX, worldY);
     const cx = this.getLayout().absoluteX();
     const cy = this.getLayout().absoluteY();
     const localX = worldX - cx;
     const localY = worldY - cy;
     if (this.isVertical()) {
-      const hh = this.size().height() / 2;
+      const hh = this.getLayout().absoluteScale() * this.size().height() / 2;
       if (localY > hh) {
         this.setVal(this.max());
       } else if (localY < -hh) {
@@ -161,7 +162,7 @@ export default class Slider extends BasicPainted<Slider> {
       }
       return;
     } else {
-      const hw = this.size().width() / 2;
+      const hw = this.getLayout().absoluteScale() * this.size().width() / 3;
       if (localX > hw) {
         this.setVal(this.max());
       } else if (localX < -hw) {

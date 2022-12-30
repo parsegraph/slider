@@ -228,7 +228,7 @@ export default class DefaultSliderScene extends SliderScene {
     painter.setBorderColor(color);
     painter.setBackgroundColor(color);
 
-    const thumbSize = block.style().thickness;
+    const thumbSize = layout.groupScale() * block.style().thickness;
 
     // Draw the BG
     painter.setBorderColor(color);
@@ -256,7 +256,7 @@ export default class DefaultSliderScene extends SliderScene {
       painter.drawBlock(
         layout.groupX(),
         layout.groupY(),
-        block.style().trackThickness,
+        layout.groupScale() * block.style().trackThickness,
         size.height() - thumbSize - style.markThickness / 2,
         layout.groupScale() * 0,
         layout.groupScale() * style.borderThickness
@@ -273,7 +273,7 @@ export default class DefaultSliderScene extends SliderScene {
             i === 0 || i === block.steps() || i === block.steps() / 2
               ? markLength
               : markLength / 2,
-            block.style().markThickness,
+            layout.groupScale() * block.style().markThickness,
             layout.groupScale() * style.borderRoundness,
             layout.groupScale() * style.borderThickness
           );
@@ -301,7 +301,7 @@ export default class DefaultSliderScene extends SliderScene {
         layout.groupX(),
         layout.groupY(),
         size.width() - thumbSize - style.markThickness / 2,
-        style.trackThickness,
+        layout.groupScale() * style.trackThickness,
         layout.groupScale() * 0,
         layout.groupScale() * style.borderThickness
       );
@@ -314,7 +314,7 @@ export default class DefaultSliderScene extends SliderScene {
               thumbSize / 2 +
               (size.width() - thumbSize) * (i / block.steps()),
             layout.groupY(),
-            style.markThickness,
+            layout.groupScale() * style.markThickness,
             i === 0 || i === block.steps() || i === block.steps() / 2
               ? markLength
               : markLength / 2,
