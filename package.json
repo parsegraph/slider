@@ -55,7 +55,7 @@
     "parsegraph-log": "^1.7.3"
   },
   "dependencies": {
-    "parsegraph-block": "^4.6.4",
+    "parsegraph-block": "^4.6.5",
     "parsegraph-blockpainter": "^1.7.4",
     "parsegraph-font": "^1.7.4"
   }
