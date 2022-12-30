@@ -205,7 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
     lastTouchLength = touchLength(e);
     focusedGraph = null;
 
-    const n = graph.value().getLayout().nodeUnderCoords(worldX, worldY) as PaintedNode;
+    const n = graph
+      .value()
+      .getLayout()
+      .nodeUnderCoords(worldX, worldY) as PaintedNode;
     if (n && n.value().interact().hasDragListener()) {
       n.value().interact().drag(worldX, worldY);
       focusedGraph = n;
@@ -219,7 +222,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   root.addEventListener("mousedown", (e) => {
     const [worldX, worldY] = cam.transform(e.clientX, e.clientY);
-    const n = graph.value().getLayout().nodeUnderCoords(worldX, worldY) as PaintedNode;
+    const n = graph
+      .value()
+      .getLayout()
+      .nodeUnderCoords(worldX, worldY) as PaintedNode;
     if (n && n.value().interact().hasDragListener()) {
       n.value().interact().drag(worldX, worldY);
       focusedGraph = n;

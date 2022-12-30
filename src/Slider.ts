@@ -30,7 +30,7 @@ export default class Slider extends BasicPainted<Slider> {
 
     this._onChange = new Method();
 
-    this.interact().setDragListener((x, y)=>{
+    this.interact().setDragListener((x, y) => {
       this.updateFromWorld(x, y);
       return true;
     });
@@ -144,7 +144,7 @@ export default class Slider extends BasicPainted<Slider> {
     const localX = worldX - cx;
     const localY = worldY - cy;
     if (this.isVertical()) {
-      const hh = this.getLayout().absoluteScale() * this.size().height() / 2;
+      const hh = (this.getLayout().absoluteScale() * this.size().height()) / 2;
       if (localY > hh) {
         this.setVal(this.max());
       } else if (localY < -hh) {
@@ -161,7 +161,7 @@ export default class Slider extends BasicPainted<Slider> {
       }
       return;
     } else {
-      const hw = this.getLayout().absoluteScale() * this.size().width() / 3;
+      const hw = (this.getLayout().absoluteScale() * this.size().width()) / 3;
       if (localX > hw) {
         this.setVal(this.max());
       } else if (localX < -hw) {
