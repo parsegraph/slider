@@ -55,17 +55,17 @@
     "parsegraph-log": "^1.9.2"
   },
   "dependencies": {
-    "parsegraph-artist": "^3.4.58",
-    "parsegraph-block": "^4.6.17",
-    "parsegraph-blockpainter": "^1.7.8",
+    "parsegraph-artist": "^3.4.61",
+    "parsegraph-block": "^4.6.20",
+    "parsegraph-blockpainter": "^1.7.9",
     "parsegraph-camera": "^1.4.22",
     "parsegraph-color": "^1.4.12",
-    "parsegraph-direction": "^2.2.3",
+    "parsegraph-direction": "^2.2.4",
     "parsegraph-font": "^1.7.6",
     "parsegraph-method": "^1.4.25",
-    "parsegraph-projector": "^1.14.8",
+    "parsegraph-projector": "^1.14.9",
     "parsegraph-rect": "^1.5.4",
-    "parsegraph-scene": "^2.3.30",
+    "parsegraph-scene": "^2.3.31",
     "parsegraph-showincamera": "^1.7.14",
     "parsegraph-size": "^1.7.4"
   }
