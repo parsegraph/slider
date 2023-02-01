@@ -3953,17 +3953,7 @@ parsegraph-block@^4.6.23:
     parsegraph-timing "^1.4.19"
     parsegraph-timingbelt "^1.8.3"
 
-parsegraph-blockpainter@^1.7.10:
-  version "1.7.10"
-  resolved "https://registry.yarnpkg.com/parsegraph-blockpainter/-/parsegraph-blockpainter-1.7.10.tgz#a05455c04ffc22fbee38b84a055bcd2a8b207031"
-  integrity sha512-Jl+fkPxMIcUJRUax9y3Q0W0Wj9mWjxEe19+5xwi564hCyXb6DlCm7nyI1NvFYcruayPAxSmDe/LfxoxvrGGIqw==
-  dependencies:
-    parsegraph-color "^1.4.12"
-    parsegraph-compileprogram "^2.2.21"
-    parsegraph-matrix "^1.4.15"
-    parsegraph-rect "^1.5.4"
-
-parsegraph-blockpainter@^1.7.12:
+parsegraph-blockpainter@^1.7.10, parsegraph-blockpainter@^1.7.12:
   version "1.7.12"
   resolved "https://registry.yarnpkg.com/parsegraph-blockpainter/-/parsegraph-blockpainter-1.7.12.tgz#2e2a1f53392f9595e638405727631616a4ce0178"
   integrity sha512-xlMRpalcva6mOCuFHtZmc+2HvHx97NNOpRHz0NobIjH0A/lb4Rkek63PYdlH/hoO0SlFnEojEgvwI7KHy5lrLA==
@@ -4066,12 +4056,7 @@ parsegraph-extent@^1.4.16:
     parsegraph-fuzzyequals "^1.4.13"
     parsegraph-gettimeinmillis "^1.4.10"
 
-parsegraph-font@^1.7.6:
-  version "1.7.6"
-  resolved "https://registry.yarnpkg.com/parsegraph-font/-/parsegraph-font-1.7.6.tgz#42911547316f3d8482af4f5545a27c99236a099b"
-  integrity sha512-y+hdOfdJydtrydAzojqcFNWPqx5JCp8I3oMRTsn2hr9AWofeYVlw+0UrXZQ8MQtclhN8n7jZFbHs5pk9hUy1zA==
-
-parsegraph-font@^1.7.7:
+parsegraph-font@^1.7.6, parsegraph-font@^1.7.7:
   version "1.7.7"
   resolved "https://registry.yarnpkg.com/parsegraph-font/-/parsegraph-font-1.7.7.tgz#29a6d3f76bf21464e5db01b2f44887ebf129bbd8"
   integrity sha512-vr0gXIpAyDYZGzUH+hq8wSL8UKoRQo59xGPOUpzHuvXDwazUPs/4iOrwEAQasT/jZ1bFIg4maRpDKjVMaE097w==
