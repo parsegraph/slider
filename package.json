@@ -57,16 +57,16 @@
   "dependencies": {
     "parsegraph-artist": "^3.4.65",
     "parsegraph-block": "^4.6.23",
-    "parsegraph-blockpainter": "^1.7.10",
-    "parsegraph-camera": "^1.4.22",
-    "parsegraph-color": "^1.4.12",
-    "parsegraph-direction": "^2.2.4",
-    "parsegraph-font": "^1.7.6",
-    "parsegraph-method": "^1.4.25",
-    "parsegraph-projector": "^1.14.10",
-    "parsegraph-rect": "^1.5.4",
-    "parsegraph-scene": "^2.3.32",
-    "parsegraph-showincamera": "^1.7.15",
-    "parsegraph-size": "^1.7.4"
+    "parsegraph-blockpainter": "^1.7.12",
+    "parsegraph-camera": "^1.4.24",
+    "parsegraph-color": "^1.4.13",
+    "parsegraph-direction": "^2.2.6",
+    "parsegraph-font": "^1.7.7",
+    "parsegraph-method": "^1.4.26",
+    "parsegraph-projector": "^1.14.12",
+    "parsegraph-rect": "^1.5.5",
+    "parsegraph-scene": "^2.3.33",
+    "parsegraph-showincamera": "^1.7.17",
+    "parsegraph-size": "^1.7.5"
   }
 }
