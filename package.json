@@ -55,18 +55,18 @@
     "parsegraph-log": "^1.9.3"
   },
   "dependencies": {
-    "parsegraph-artist": "^3.4.65",
-    "parsegraph-block": "^4.6.23",
+    "parsegraph-artist": "^3.4.67",
+    "parsegraph-block": "^4.6.25",
     "parsegraph-blockpainter": "^1.7.12",
     "parsegraph-camera": "^1.4.24",
     "parsegraph-color": "^1.4.13",
-    "parsegraph-direction": "^2.2.6",
+    "parsegraph-direction": "^2.3.0",
     "parsegraph-font": "^1.7.7",
     "parsegraph-method": "^1.4.26",
     "parsegraph-projector": "^1.14.12",
     "parsegraph-rect": "^1.5.5",
-    "parsegraph-scene": "^2.3.33",
-    "parsegraph-showincamera": "^1.7.17",
+    "parsegraph-scene": "^2.3.34",
+    "parsegraph-showincamera": "^1.7.18",
     "parsegraph-size": "^1.7.5"
   }
 }
